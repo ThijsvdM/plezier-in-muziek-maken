@@ -12,7 +12,7 @@ export default function Home() {
         <div className="flex justify-center mb-4">
           <Image
             src="/logo.png"
-            alt="Muziek Avontuur logo"
+            alt="Plezier in muziek maken logo"
             width={120}
             height={120}
             className="rounded-3xl shadow-lg"
@@ -20,7 +20,7 @@ export default function Home() {
         </div>
 
         {/* TITEL */}
-        <h1 className="title">🎵 Muziek Avontuur</h1>
+        <h1 className="title">🎵 Plezier in muziek maken</h1>
 
         <p className="subtitle mt-2">
           Kies een instrument en start je muzikale reis!

@@ -11,7 +11,7 @@ export default function SponsorsPage() {
           </h1>
 
           <p className="subtitle">
-            Dit project is mogelijk dankzij de steun van onderstaande partners.
+            Dit project is mogelijk dankzij de onderstaande muziekliefhebbers.
           </p>
         </div>
 
@@ -33,7 +33,7 @@ export default function SponsorsPage() {
             </h2>
 
             <p className="subtitle mt-2">
-              Initiatiefnemer van Muziek Avontuur.
+              Plezier in samen muziekmaken is ons motto.
             </p>
           </div>
 

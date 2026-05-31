@@ -13,7 +13,7 @@ export default function OudersPage() {
           </div>
 
           <h1 className="title">
-            Muziek Avontuur
+            Informatie voor ouders
           </h1>
 
           <p className="subtitle">

@@ -12,7 +12,7 @@ export default function ContactPage() {
 
         <div className="card">
           <p className="subtitle mb-4">
-            Heeft u vragen over Muziek Avontuur of over de lessen?
+            Heeft u vragen over Plezier in muziek maken of over de lessen?
           </p>
 
           <p>

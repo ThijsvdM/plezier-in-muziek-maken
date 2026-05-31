@@ -86,7 +86,7 @@ export default function LoginPage() {
 
         {/* 🧠 TITLE */}
         <h1 className="title mb-2">
-          Muziek Avontuur
+          Inloggen
         </h1>
 
         <p className="subtitle mb-8">
