@@ -1,0 +1,133 @@
+:root {
+  /* 🌈 BRAND COLORS */
+  --primary: #0693e3;
+  --primary-light: #8ed1fc;
+  --primary-dark: #005a87;
+
+  /* 🎨 BACKGROUND SYSTEM */
+  --bg: #f7f7fb;
+  --bg-soft: linear-gradient(180deg, #f7f7fb, #ffffff, #fdf2f8);
+
+  /* 🧸 SURFACES */
+  --card: #ffffff;
+  --border: #e6e6ef;
+
+  /* ❤️ ACCENTS */
+  --danger: #cf2e2e;
+  --pink: #f78da7;
+  --yellow: #ffd166;
+  --green: #06d6a0;
+  --purple: #7b61ff;
+}
+
+/* =========================
+   🌍 GLOBAL STYLES
+========================= */
+
+body {
+  margin: 0;
+  font-family: ui-rounded, system-ui, -apple-system, sans-serif;
+  background: var(--bg-soft);
+  color: #1f2937;
+}
+
+/* =========================
+   🧩 CARDS (LESPANELEN)
+========================= */
+
+.card {
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: 28px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px) scale(1.02);
+  border-color: var(--primary-light);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================
+   🎯 BUTTONS
+========================= */
+
+.btn {
+  display: inline-block;
+  background: var(--primary);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 20px rgba(6, 147, 227, 0.25);
+}
+
+.btn:hover {
+  background: var(--primary-dark);
+  transform: scale(1.06);
+}
+
+/* =========================
+   🧠 TITLES
+========================= */
+
+.title {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--primary-dark);
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #4b5563;
+}
+
+/* =========================
+   🎮 INTERACTIVE STATES
+========================= */
+
+.clickable {
+  cursor: pointer;
+}
+
+.clickable:active {
+  transform: scale(0.98);
+}
+
+/* =========================
+   🧸 FUN ELEMENTS
+========================= */
+
+.badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+/* =========================
+ cartoon speech bubble */
+ .speech-bubble {
+  position: relative;
+}
+
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  right: 24px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-right: 2px solid var(--primary-light);
+  border-bottom: 2px solid var(--primary-light);
+  transform: rotate(45deg);
+}
