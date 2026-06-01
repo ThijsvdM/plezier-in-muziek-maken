@@ -21,50 +21,33 @@ export default function Les1() {
           className="text-2xl font-bold mb-4"
           style={{ color: "var(--primary-dark)" }}
         >
-          👋 Welkom!
+          👋 Welkom bij Team Melodie!
         </h2>
 
         <p className="subtitle mb-4">
-          In deze les leer je hoe je het klokkenspel vasthoudt
-          en hoe je de eerste tonen kunt spelen.
+          Tijdens de eerste les heb je een introductie gekregen over het klokkenspel. Je hebt gezien hoe het instrument eruitziet en hoe je er geluid mee kunt maken. 
         </p>
 
+        <p className="subtitle mb-4">
+          Je hebt geleerd hoe je verschillende noten kunt spelen door op de gekleurde toetsen te tikken. Elke kleur staat voor een andere toonhoogte, en samen vormen ze de basis van muziek maken op het klokkenspel. In de eerste les hebben we al de melodie uit `The Eye of the Tiger` gespeeld, en je hebt ervaren hoe leuk het is om muziek te maken!
+        </p>
+        
         <p className="subtitle">
-          Neem rustig de tijd en luister goed naar de klanken.
+          Om thuis verder te kunnen oefenen, vind je oefenmateriaal en hulpmiddelen op deze website!  
         </p>
       </section>
 
-      {/* AFBEELDING */}
-      <section className="card mb-8 text-center">
-        <h2
-          className="text-2xl font-bold mb-4"
-          style={{ color: "var(--yellow)" }}
-        >
-          🖼️ Zo ziet een klokkenspel eruit
-        </h2>
-
-        <div className="flex justify-center">
-          <Image
-            src="/klokkenspel-les1.png"
-            alt="Klokkenspel"
-            width={500}
-            height={300}
-            className="rounded-3xl shadow-lg"
-          />
-        </div>
-      </section>
-
-      {/* VIDEO */}
+    {/* VIDEO */}
       <section className="card mb-8">
         <h2
           className="text-2xl font-bold mb-4"
           style={{ color: "var(--pink)" }}
         >
-          🎥 Bekijk de uitlegvideo
+          🎥 Uitlegvideo Eye of the Tiger
         </h2>
 
         <p className="subtitle mb-6">
-          Kijk eerst goed hoe het instrument gespeeld wordt.
+          Wil je graag weten hoe het moet klinken, of meespelen met de video? Bekijk dan deze video waarin we stap voor stap de melodie van `The Eye of the Tiger` spelen op het klokkenspel. Je kunt meespelen, meezingen, of gewoon luisteren!
         </p>
 
         <div className="aspect-video rounded-3xl overflow-hidden shadow-lg">
@@ -78,6 +61,28 @@ export default function Les1() {
         </div>
       </section>
 
+      {/* AFBEELDING */}
+      <section className="card mb-8 text-center">
+        <h2
+          className="text-2xl font-bold mb-4"
+          style={{ color: "var(--yellow)" }}
+        >
+          Een extra oefening, herken je deze melodie?
+        </h2>
+
+        <div className="flex justify-center">
+          <Image
+            src="/Happy-birthday-klokkenspel.png"
+            alt="Happy Birthday op het klokkenspel"
+            width={800}
+            height={500}
+            className="rounded-3xl shadow-lg"
+          />
+        </div>
+      </section>
+
+  
+
       {/* OEFENING */}
       <section className="card mb-8">
         <h2
@@ -88,7 +93,7 @@ export default function Les1() {
         </h2>
 
         <p className="subtitle mb-4">
-          Speel nu zelf langzaam een paar tonen na.
+          Zoek de verschillende noten op, op je klokkenspel en probeer rustig de melodie te spelen. Weet jij al welk nummer het is? Hint: het is een heel bekend verjaardagsliedje!
         </p>
 
         <ul className="space-y-3">

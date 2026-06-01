@@ -86,7 +86,7 @@ export default function OudersPage() {
 
               <div>
                 <h3 className="font-bold" style={{ color: "var(--purple)" }}>
-                  🎷 Pbuzz
+                  🎺 Pbuzz
                 </h3>
 
                 <p className="subtitle mt-2">

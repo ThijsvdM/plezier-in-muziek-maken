@@ -19,7 +19,7 @@ export default function Pbuzz() {
 
       {/* HERO */}
       <div className="text-center mb-10">
-        <div className="instrument-header">🎷 Pbuzz</div>
+        <div className="instrument-header">🎺 Pbuzz</div>
 
         <h1 className="title">Jouw lessen</h1>
 
@@ -38,7 +38,7 @@ export default function Pbuzz() {
 
         {/* Les 1 */}
         <Link href="/pbuzz/les-1" className="card text-center clickable">
-          <div className="text-5xl mb-3">🎷</div>
+          <div className="text-5xl mb-3">🎺</div>
           <h2 className="text-xl font-bold mb-2" style={{ color: "var(--purple)" }}>
             Les 1
           </h2>

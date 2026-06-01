@@ -67,7 +67,7 @@ export default function Home() {
         {/* 🎷 Pbuzz */}
         <Link href="/pbuzz" className="clickable">
           <div className="card text-center">
-            <div className="text-6xl mb-3">🎷</div>
+            <div className="text-6xl mb-3">🎺</div>
             <h2 className="text-2xl font-bold mb-2" style={{ color: "var(--purple)" }}>
               Pbuzz
             </h2>
@@ -86,7 +86,8 @@ export default function Home() {
       {/* FUN FOOTER */}
       <div className="text-center mt-16">
         <p className="subtitle">
-          🎮 Leer, speel en ontdek muziek op jouw tempo
+          Leer, speel en ontdek muziek op jouw tempo. <br />
+          Gebruik deze digitale omgeving als hulpmiddel naast je lesboek.
         </p>
       </div>
 

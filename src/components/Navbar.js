@@ -34,7 +34,7 @@ export default function Navbar() {
         </Link>
 
         <Link href="/pbuzz" className="btn" style={{ background: "var(--purple)" }}>
-          🎷 Pbuzz
+          🎺 Pbuzz
         </Link>
 
         <Link href="/ouders" className="btn">
