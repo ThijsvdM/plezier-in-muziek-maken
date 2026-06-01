@@ -1,20 +1,21 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 export default function InstrumentPage() {
   const audioCtxRef = useRef(null);
   const [activeNote, setActiveNote] = useState(null);
 
   const notes = [
-    { name: "Do", color: "var(--primary)", freq: 261.63, key: "a" },
-    { name: "Re", color: "var(--yellow)", freq: 293.66, key: "s" },
-    { name: "Mi", color: "var(--green)", freq: 329.63, key: "d" },
-    { name: "Fa", color: "var(--pink)", freq: 349.23, key: "f" },
-    { name: "Sol", color: "var(--purple)", freq: 392.0, key: "g" },
-    { name: "La", color: "#ff7ad9", freq: 440.0, key: "h" },
-    { name: "Ti", color: "#ff4d6d", freq: 493.88, key: "j" },
-    { name: "Do+", color: "#7df9ff", freq: 523.25, key: "k" }
+    { name: "C", color: "#ff4d6d", freq: 261.63, key: "1" },
+    { name: "D", color: "#f7b731", freq: 293.66, key: "2" },
+    { name: "E", color: "#dced19", freq: 329.63, key: "3" },
+    { name: "F", color: "#16c760", freq: 349.23, key: "4" },
+    { name: "G", color: "#32969a", freq: 392.0, key: "5" },
+    { name: "A", color: "#7a2ed1", freq: 440.0, key: "6" },
+    { name: "B", color: "#ff4dde", freq: 493.88, key: "7" },
+    { name: "C+", color: "#ff4d6d", freq: 523.25, key: "8" }
   ];
 
   const playNote = (note) => {
@@ -58,7 +59,7 @@ export default function InstrumentPage() {
 
       <div className="text-center mb-10">
         <h1 className="title">🎹 Digitaal instrument</h1>
-        <p className="subtitle">Klik of gebruik A S D F G H J K om te spelen</p>
+        <p className="subtitle">Klik of gebruik 1 2 3 4 5 6 7 8 om te spelen. <br />Handig, voor als je wilt oefenen en je jouw instrument niet bij de hand hebt!</p>
       </div>
 
       <div className="card max-w-5xl mx-auto">
@@ -81,6 +82,21 @@ export default function InstrumentPage() {
             </button>
           ))}
 
+      </div>
+                {/* 🎨 Kleurenoverzicht */}
+        <div className="card max-w-5xl mx-auto mt-8">
+          <p className="subtitle text-center mb-6">
+            Op het klokkenspel en de pBuzz staat iedere kleur voor een vaste noot.
+          </p>
+
+          <div className="relative w-full h-[250px] md:h-[400px]">
+            <Image
+              src="/instrument-octaaf-kleuren.png"
+              alt="Kleuren en noten overzicht"
+              fill
+              className="object-contain"
+            />
+          </div>
         </div>
       </div>
 
