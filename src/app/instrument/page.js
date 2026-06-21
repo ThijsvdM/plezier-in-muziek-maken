@@ -55,14 +55,26 @@ export default function InstrumentPage() {
   }, []);
 
   return (
-    <main className="min-h-screen p-8 md:p-12" style={{ background: "var(--bg-soft)" }}>
+    <main className="relative min-h-screen overflow-hidden p-8 md:p-12" style={{ background: "var(--bg-soft)" }}>
+      <div
+        className="pointer-events-none absolute -left-10 top-10 h-44 w-44 rounded-full opacity-35 blur-3xl"
+        style={{ background: "var(--primary-light)" }}
+      ></div>
+      <div
+        className="pointer-events-none absolute right-0 top-28 h-56 w-56 rounded-full opacity-30 blur-3xl"
+        style={{ background: "var(--yellow)" }}
+      ></div>
+      <div
+        className="pointer-events-none absolute bottom-0 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full opacity-20 blur-3xl"
+        style={{ background: "var(--pink)" }}
+      ></div>
 
-      <div className="text-center mb-10">
+      <div className="relative text-center mb-10">
         <h1 className="title">🎹 Digitaal instrument</h1>
         <p className="subtitle">Klik of gebruik 1 2 3 4 5 6 7 8 om te spelen. <br />Handig, voor als je wilt oefenen en je jouw instrument niet bij de hand hebt!</p>
       </div>
 
-      <div className="card max-w-5xl mx-auto">
+      <div className="relative card max-w-5xl mx-auto">
         <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-8 gap-2">
 
           {notes.map((note) => (

@@ -22,7 +22,9 @@ export default function LoginPage() {
     },
   ];
 
-  const handleLogin = () => {
+  const handleLogin = (event) => {
+    event?.preventDefault();
+
     const foundUser = users.find(
       (user) =>
         user.username === username &&
@@ -42,18 +44,31 @@ export default function LoginPage() {
 
     // ➜ redirect
     router.push("/");
-    window.location.reload();
   };
 
   return (
     <main
-      className="min-h-screen flex items-center justify-center p-6"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden p-6"
       style={{
         background: "var(--bg-soft)",
       }}
     >
       <div
-        className="card w-full max-w-md text-center"
+        className="pointer-events-none absolute -left-8 top-12 h-40 w-40 rounded-full opacity-40 blur-3xl"
+        style={{ background: "var(--yellow)" }}
+      ></div>
+      <div
+        className="pointer-events-none absolute right-4 top-8 h-48 w-48 rounded-full opacity-35 blur-3xl"
+        style={{ background: "var(--pink)" }}
+      ></div>
+      <div
+        className="pointer-events-none absolute bottom-4 left-1/3 h-56 w-56 rounded-full opacity-25 blur-3xl"
+        style={{ background: "var(--primary-light)" }}
+      ></div>
+
+      <form
+        className="card relative w-full max-w-md text-center"
+        onSubmit={handleLogin}
         style={{
           position: "relative",
           overflow: "hidden",
@@ -120,7 +135,7 @@ export default function LoginPage() {
 
         {/* 🚀 LOGIN BUTTON */}
         <button
-          onClick={handleLogin}
+          type="submit"
           className="btn w-full clickable"
           style={{
             fontSize: "1.1rem",
@@ -143,7 +158,7 @@ export default function LoginPage() {
           <strong>leerling</strong> / muziek123
         </div>
 
-      </div>
+      </form>
     </main>
   );
 }

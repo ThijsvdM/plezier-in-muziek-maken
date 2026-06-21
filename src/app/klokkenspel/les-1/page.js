@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Les1() {
   return (
@@ -116,9 +117,9 @@ export default function Les1() {
           Je hebt je eerste klokkenspel-les afgerond!
         </p>
 
-        <button className="btn">
+        <Link href="/klokkenspel/les-2" className="btn">
           Naar Les 2 →
-        </button>
+        </Link>
       </section>
 
     </main>

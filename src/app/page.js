@@ -3,10 +3,22 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="min-h-screen p-10">
+    <main className="relative min-h-screen overflow-hidden p-10" style={{ background: "var(--bg-soft)" }}>
+      <div
+        className="pointer-events-none absolute -left-10 top-10 h-40 w-40 rounded-full opacity-40 blur-3xl"
+        style={{ background: "var(--yellow)" }}
+      ></div>
+      <div
+        className="pointer-events-none absolute right-0 top-24 h-56 w-56 rounded-full opacity-30 blur-3xl"
+        style={{ background: "var(--pink)" }}
+      ></div>
+      <div
+        className="pointer-events-none absolute bottom-10 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full opacity-25 blur-3xl"
+        style={{ background: "var(--primary-light)" }}
+      ></div>
 
       {/* HERO */}
-<div className="text-center mb-12">
+      <div className="relative text-center mb-12">
 
   {/* LOGO */}
         <div className="flex justify-center mb-4">
@@ -28,7 +40,7 @@ export default function Home() {
       </div>
 
       {/* GRID */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <div className="relative grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
 
         {/* 🎵 Klokkenspel */}
         <Link href="/klokkenspel" className="clickable">
