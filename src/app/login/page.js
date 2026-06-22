@@ -17,7 +17,7 @@ export default function LoginPage() {
       password: "muziek123",
     },
     {
-      username: "thijs",
+      username: "docent",
       password: "drummen",
     },
   ];

@@ -2,14 +2,26 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    if (typeof window === "undefined") return null;
+    return localStorage.getItem("music_user");
+  });
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
-    const name = localStorage.getItem("music_user");
-    setUser(name);
+    // We need to refresh login state when the route changes.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setUser(localStorage.getItem("music_user"));
+  }, [pathname]);
+
+  useEffect(() => {
+    const handleStorage = () => setUser(localStorage.getItem("music_user"));
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
   }, []);
 
   const closeMobileMenu = () => setMobileOpen(false);
@@ -19,8 +31,13 @@ export default function Navbar() {
     { href: "/klokkenspel", label: "🎵 Klokkenspel", style: { background: "var(--yellow)", color: "#333" } },
     { href: "/trommel", label: "🥁 Trommel", style: { background: "var(--pink)", color: "#333" } },
     { href: "/pbuzz", label: "🎺 Pbuzz", style: { background: "var(--purple)" } },
-    { href: "/ouders", label: "👨‍👩‍👧 Ouders", style: {} },
   ];
+
+  if (user) {
+    navItems.push({ href: "/agenda", label: "📅 Agenda", style: { background: "var(--green)", color: "#333" } });
+  }
+
+  navItems.push({ href: "/ouders", label: "👨‍👩‍👧 Ouders", style: {} });
 
   return (
     <>
