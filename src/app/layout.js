@@ -4,8 +4,11 @@ import "./globals.css";
 import "./theme.css";
 
 export const metadata = {
-  title: "Muziek Avontuur",
+  title: "Plezier in Muziek Maken",
   description: "Leer muziek op een leuke manier",
+  icons: {
+    icon: "/music-note.svg",
+  },
 };
 
 export default function RootLayout({ children }) {
