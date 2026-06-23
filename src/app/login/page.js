@@ -3,24 +3,39 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+const defaultUsers = [
+  {
+    username: "leerling",
+    password: "muziek123",
+  },
+  {
+    username: "docent",
+    password: "drummen",
+  },
+];
+
 export default function LoginPage() {
   const router = useRouter();
 
+  const [users, setUsers] = useState(() => {
+    if (typeof window === "undefined") return defaultUsers;
+
+    const storedUsers = localStorage.getItem("music_users");
+    if (!storedUsers) {
+      localStorage.setItem("music_users", JSON.stringify(defaultUsers));
+      return defaultUsers;
+    }
+
+    try {
+      return JSON.parse(storedUsers);
+    } catch (error) {
+      localStorage.setItem("music_users", JSON.stringify(defaultUsers));
+      return defaultUsers;
+    }
+  });
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
-  // 🎵 Demo accounts
-  const users = [
-    {
-      username: "leerling",
-      password: "muziek123",
-    },
-    {
-      username: "docent",
-      password: "drummen",
-    },
-  ];
 
   const handleLogin = (event) => {
     event?.preventDefault();

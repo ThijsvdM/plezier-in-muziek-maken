@@ -5,18 +5,24 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function Navbar() {
-  const [user, setUser] = useState(() => {
-    if (typeof window === "undefined") return null;
-    return localStorage.getItem("music_user");
-  });
+  const [user, setUser] = useState(null);
+  const [hydrated, setHydrated] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
-    // We need to refresh login state when the route changes.
+    const storedUser = localStorage.getItem("music_user");
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setUser(localStorage.getItem("music_user"));
-  }, [pathname]);
+    setUser(storedUser);
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    const storedUser = localStorage.getItem("music_user");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setUser(storedUser);
+  }, [pathname, hydrated]);
 
   useEffect(() => {
     const handleStorage = () => setUser(localStorage.getItem("music_user"));
@@ -42,10 +48,10 @@ export default function Navbar() {
   return (
     <>
       <nav className="md:hidden sticky top-0 z-50 backdrop-blur-md"
-      style={{
-        background: "rgba(255,255,255,0.85)",
-        borderBottom: "2px solid var(--border)",
-      }}
+        style={{
+          background: "rgba(255,255,255,0.85)",
+          borderBottom: "2px solid var(--border)",
+        }}
       >
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3">
           <Link href="/" className="btn shrink-0" onClick={closeMobileMenu}>
