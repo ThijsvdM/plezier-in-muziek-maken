@@ -43,7 +43,7 @@ export default function Navbar() {
   ];
 
   if (user) {
-    navItems.push({ href: "/agenda", label: "📅 Agenda", style: navButtonStyles.agenda });
+    navItems.push({ href: "/agenda", label: user === "docent" ? "Docent" : "📅 Agenda", style: navButtonStyles.agenda });
   }
 
   navItems.push({ href: "/ouders", label: "👨‍👩‍👧 Ouders", style: navButtonStyles.parents });

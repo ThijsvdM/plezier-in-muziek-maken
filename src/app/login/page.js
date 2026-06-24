@@ -7,12 +7,24 @@ const defaultUsers = [
   {
     username: "leerling",
     password: "muziek123",
+    maxUnlockedLesson: 5,
   },
   {
     username: "docent",
     password: "drummen",
+    maxUnlockedLesson: 10,
   },
 ];
+
+const normalizeUser = (user) => ({
+  username: user.username,
+  password: user.password,
+  maxUnlockedLesson: typeof user.maxUnlockedLesson === "number"
+    ? user.maxUnlockedLesson
+    : user.username === "docent"
+      ? 10
+      : 5,
+});
 
 export default function LoginPage() {
   const router = useRouter();
@@ -27,7 +39,11 @@ export default function LoginPage() {
     }
 
     try {
-      return JSON.parse(storedUsers);
+      const parsedUsers = JSON.parse(storedUsers);
+      if (!Array.isArray(parsedUsers)) return defaultUsers;
+      const normalizedUsers = parsedUsers.map(normalizeUser);
+      localStorage.setItem("music_users", JSON.stringify(normalizedUsers));
+      return normalizedUsers;
     } catch (error) {
       localStorage.setItem("music_users", JSON.stringify(defaultUsers));
       return defaultUsers;
@@ -53,9 +69,6 @@ export default function LoginPage() {
 
     // ✅ login opslaan
     localStorage.setItem("music_user", foundUser.username);
-
-    // 🔓 lessen unlocken
-    localStorage.setItem("music_unlocked", "true");
 
     // ➜ redirect
     router.push("/");

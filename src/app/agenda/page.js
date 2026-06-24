@@ -8,14 +8,26 @@ const defaultUsers = [
   {
     username: "leerling",
     password: "muziek123",
+    maxUnlockedLesson: 5,
   },
   {
     username: "docent",
     password: "drummen",
+    maxUnlockedLesson: 10,
   },
 ];
 
 const defaultEvents = [];
+
+const normalizeUser = (user) => ({
+  username: user.username,
+  password: user.password,
+  maxUnlockedLesson: typeof user.maxUnlockedLesson === "number"
+    ? user.maxUnlockedLesson
+    : user.username === "docent"
+      ? 10
+      : 5,
+});
 
 const sortEventsByDateTime = (items) =>
   [...items].sort((a, b) => {
@@ -33,7 +45,11 @@ const getStoredUsers = () => {
   }
 
   try {
-    return JSON.parse(storedUsers);
+    const parsedUsers = JSON.parse(storedUsers);
+    if (!Array.isArray(parsedUsers)) return defaultUsers;
+    const normalizedUsers = parsedUsers.map(normalizeUser);
+    localStorage.setItem("music_users", JSON.stringify(normalizedUsers));
+    return normalizedUsers;
   } catch (error) {
     console.warn("Ongeldige gebruikersdata in localStorage", error);
     localStorage.setItem("music_users", JSON.stringify(defaultUsers));
@@ -92,6 +108,7 @@ export default function AgendaPage() {
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [userError, setUserError] = useState("");
+  const unlockedLessonOptions = [5, 6, 7, 8, 9, 10];
 
   useEffect(() => {
     if (!user) {
@@ -110,6 +127,8 @@ export default function AgendaPage() {
 
   const isOwner = user === "docent";
   const isLoggedIn = Boolean(user);
+  const currentUserRecord = users.find((userItem) => userItem.username === user) || null;
+  const currentUnlockedLesson = currentUserRecord?.maxUnlockedLesson ?? (user === "docent" ? 10 : 5);
 
   const handleAddEvent = (event) => {
     event.preventDefault();
@@ -161,11 +180,22 @@ export default function AgendaPage() {
     const newUser = {
       username: newUsername,
       password: newPassword,
+      maxUnlockedLesson: 5,
     };
 
     setUsers((current) => [...current, newUser]);
     setNewUsername("");
     setNewPassword("");
+  };
+
+  const handleUpdateUserUnlocks = (usernameToUpdate, lessonNumber) => {
+    setUsers((current) =>
+      current.map((userItem) =>
+        userItem.username === usernameToUpdate
+          ? { ...userItem, maxUnlockedLesson: lessonNumber }
+          : userItem
+      )
+    );
   };
 
   const handleDeleteUser = (usernameToDelete) => {
@@ -234,7 +264,7 @@ export default function AgendaPage() {
                   Bekijk hier de datum en tijd van de komende lessen.
                 </p>
               </div>
-              <div className="badge">Ingelogd als {user}</div>
+              <div className="badge">Ingelogd als {user} · les t/m {currentUnlockedLesson}</div>
             </div>
 
             {visibleEvents.length === 0 ? (
@@ -307,8 +337,22 @@ export default function AgendaPage() {
                   {users
                     .filter((userItem) => userItem.username !== "docent")
                     .map((userItem) => (
-                      <div key={userItem.username} className="card p-4 flex items-center justify-between">
-                        <span>{userItem.username}</span>
+                      <div key={userItem.username} className="card p-4 grid gap-4 md:grid-cols-[1fr_auto_auto] md:items-center">
+                        <div>
+                          <span className="font-bold">{userItem.username}</span>
+                          <p className="subtitle mt-1">Ontgrendeld t/m les {userItem.maxUnlockedLesson ?? 5}</p>
+                        </div>
+                        <select
+                          value={userItem.maxUnlockedLesson ?? 5}
+                          onChange={(e) => handleUpdateUserUnlocks(userItem.username, Number(e.target.value))}
+                          className="input md:w-56"
+                        >
+                          {unlockedLessonOptions.map((lessonNumber) => (
+                            <option key={lessonNumber} value={lessonNumber}>
+                              T/m les {lessonNumber}
+                            </option>
+                          ))}
+                        </select>
                         <button
                           type="button"
                           className="btn clickable"

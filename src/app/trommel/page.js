@@ -4,13 +4,48 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function Trommel() {
-  const [unlocked, setUnlocked] = useState(false);
+  const [maxUnlockedLesson, setMaxUnlockedLesson] = useState(1);
+
+  const getMaxUnlockedLesson = () => {
+    if (typeof window === "undefined") return 1;
+
+    const currentUser = localStorage.getItem("music_user");
+    if (!currentUser) return 1;
+
+    const storedUsers = localStorage.getItem("music_users");
+    if (storedUsers) {
+      try {
+        const parsedUsers = JSON.parse(storedUsers);
+        if (Array.isArray(parsedUsers)) {
+          const userRecord = parsedUsers.find((item) => item.username === currentUser);
+          if (typeof userRecord?.maxUnlockedLesson === "number") {
+            return userRecord.maxUnlockedLesson;
+          }
+        }
+      } catch (error) {
+        // ignore malformed storage and fall back below
+      }
+    }
+
+    const legacyUnlocked = localStorage.getItem("music_unlocked");
+    if (legacyUnlocked === "true") {
+      return 5;
+    }
+
+    return currentUser === "docent" ? 10 : 5;
+  };
 
   useEffect(() => {
-    const value = localStorage.getItem("music_unlocked");
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setUnlocked(value === "true");
+    const refreshAccess = () => {
+      setMaxUnlockedLesson(getMaxUnlockedLesson());
+    };
+
+    refreshAccess();
+    window.addEventListener("storage", refreshAccess);
+    return () => window.removeEventListener("storage", refreshAccess);
   }, []);
+
+  const canAccessLesson = (lessonNumber) => lessonNumber <= maxUnlockedLesson;
 
   return (
     <main className="relative min-h-screen overflow-hidden p-8 md:p-12" style={{ background: "var(--bg-soft)" }}>
@@ -35,7 +70,7 @@ export default function Trommel() {
           <div className="badge mt-4">✅ Beschikbaar</div>
         </Link>
 
-        {unlocked ? (
+        {canAccessLesson(2) ? (
           <Link href="/trommel/les-2" className="card text-center clickable">
             <div className="text-5xl mb-3">🎵</div>
             <h2 className="text-xl font-bold mb-2">Les 2</h2>
@@ -51,7 +86,7 @@ export default function Trommel() {
           </div>
         )}
 
-        {unlocked ? (
+        {canAccessLesson(3) ? (
           <Link href="/trommel/les-3" className="card text-center clickable">
             <div className="text-5xl mb-3">🏆</div>
             <h2 className="text-xl font-bold mb-2" style={{ color: "var(--green)" }}>Les 3</h2>
@@ -67,7 +102,7 @@ export default function Trommel() {
           </div>
         )}
 
-        {unlocked ? (
+        {canAccessLesson(4) ? (
           <Link href="/trommel/les-4" className="card text-center clickable">
             <div className="text-5xl mb-3">🥁</div>
             <h2 className="text-xl font-bold mb-2">Les 4</h2>
@@ -83,7 +118,7 @@ export default function Trommel() {
           </div>
         )}
 
-        {unlocked ? (
+        {canAccessLesson(5) ? (
           <Link href="/trommel/les-5" className="card text-center clickable">
             <div className="text-5xl mb-3">🥁</div>
             <h2 className="text-xl font-bold mb-2">Les 5</h2>
@@ -99,14 +134,23 @@ export default function Trommel() {
           </div>
         )}
 
-        {[6, 7, 8, 9, 10].map((n) => (
-          <div key={n} className="card text-center opacity-60">
-            <div className="text-5xl mb-3">🔒</div>
-            <h2 className="text-xl font-bold mb-2">Les {n}</h2>
-            <p className="subtitle">Afgesloten tot later</p>
-            <div className="badge mt-4">🔒 Locked</div>
-          </div>
-        ))}
+        {[6, 7, 8, 9, 10].map((n) =>
+          canAccessLesson(n) ? (
+            <Link key={n} href={`/trommel/les-${n}`} className="card text-center clickable">
+              <div className="text-5xl mb-3">🥁</div>
+              <h2 className="text-xl font-bold mb-2" style={{ color: "var(--green)" }}>Les {n}</h2>
+              <p className="subtitle">Ontgrendeld door de docent</p>
+              <div className="badge mt-4">✅ Beschikbaar</div>
+            </Link>
+          ) : (
+            <div key={n} className="card text-center opacity-60">
+              <div className="text-5xl mb-3">🔒</div>
+              <h2 className="text-xl font-bold mb-2">Les {n}</h2>
+              <p className="subtitle">Afgesloten tot later</p>
+              <div className="badge mt-4">🔒 Locked</div>
+            </div>
+          )
+        )}
       </section>
     </main>
   );
