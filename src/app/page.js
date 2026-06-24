@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-hidden p-10" style={{ background: "var(--bg-soft)" }}>
+    <main className="relative min-h-screen overflow-hidden px-5 py-8 md:p-10" style={{ background: "var(--bg-soft)" }}>
       <div
         className="pointer-events-none absolute -left-10 top-10 h-40 w-40 rounded-full opacity-40 blur-3xl"
         style={{ background: "var(--yellow)" }}
@@ -18,7 +18,7 @@ export default function Home() {
       ></div>
 
       {/* HERO */}
-      <div className="relative text-center mb-12">
+      <div className="relative mx-auto mb-12 max-w-5xl rounded-[36px] border-4 p-6 text-center shadow-[0_20px_50px_rgba(36,50,74,0.12)] md:p-10" style={{ background: "rgba(255,255,255,0.84)", borderColor: "rgba(255,255,255,0.92)" }}>
 
   {/* LOGO */}
         <div className="flex justify-center mb-4">
@@ -34,17 +34,23 @@ export default function Home() {
         {/* TITEL */}
         <h1 className="title">🎵 Plezier in muziek maken</h1>
 
-        <p className="subtitle mt-2">
-          Kies een instrument en start je muzikale reis!
+        <p className="subtitle mt-3 mx-auto max-w-2xl">
+          Kies een instrument, pak je lesboek erbij en oefen stap voor stap op een vrolijke manier.
         </p>
+
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <span className="badge" style={{ background: "var(--yellow)", color: "#4a3500" }}>Voor tablet en mobiel</span>
+          <span className="badge" style={{ background: "var(--green)", color: "#064e3b" }}>Extra hulp bij je lesboek</span>
+          <span className="badge" style={{ background: "var(--pink)", color: "#6f2240" }}>Spelen, oefenen, ontdekken</span>
+        </div>
       </div>
 
       {/* GRID */}
-      <div className="relative grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <div className="relative grid grid-cols-1 gap-6 max-w-5xl mx-auto md:grid-cols-3 md:gap-8">
 
         {/* 🎵 Klokkenspel */}
         <Link href="/klokkenspel" className="clickable">
-          <div className="card text-center">
+          <div className="card text-center h-full">
             <div className="text-6xl mb-3">🎵</div>
             <h2 className="text-2xl font-bold mb-2" style={{ color: "var(--primary)" }}>
               Klokkenspel
@@ -61,7 +67,7 @@ export default function Home() {
 
         {/* 🥁 Trommel */}
         <Link href="/trommel" className="clickable">
-          <div className="card text-center">
+          <div className="card text-center h-full">
             <div className="text-6xl mb-3">🥁</div>
             <h2 className="text-2xl font-bold mb-2" style={{ color: "var(--pink)" }}>
               Trommel
@@ -78,7 +84,7 @@ export default function Home() {
 
         {/* 🎷 Pbuzz */}
         <Link href="/pbuzz" className="clickable">
-          <div className="card text-center">
+          <div className="card text-center h-full">
             <div className="text-6xl mb-3">🎺</div>
             <h2 className="text-2xl font-bold mb-2" style={{ color: "var(--purple)" }}>
               Pbuzz
@@ -96,8 +102,8 @@ export default function Home() {
       </div>
 
       {/* FUN FOOTER */}
-      <div className="text-center mt-16">
-        <p className="subtitle">
+      <div className="text-center mt-16 px-2">
+        <p className="subtitle mx-auto max-w-2xl">
           Leer, speel en ontdek muziek op jouw tempo. <br />
           Gebruik deze digitale omgeving als hulpmiddel naast je lesboek.
         </p>

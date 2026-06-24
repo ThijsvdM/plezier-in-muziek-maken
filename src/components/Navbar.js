@@ -49,8 +49,9 @@ export default function Navbar() {
     <>
       <nav className="md:hidden sticky top-0 z-50 backdrop-blur-md"
         style={{
-          background: "rgba(255,255,255,0.85)",
-          borderBottom: "2px solid var(--border)",
+          background: "rgba(255,255,255,0.88)",
+          borderBottom: "3px solid rgba(255,255,255,0.9)",
+          boxShadow: "0 12px 28px rgba(36, 50, 74, 0.08)",
         }}
       >
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3">
@@ -121,11 +122,12 @@ export default function Navbar() {
       <nav
         className="hidden md:block sticky top-0 z-40 backdrop-blur-md"
         style={{
-          background: "rgba(255,255,255,0.85)",
-          borderBottom: "2px solid var(--border)",
+          background: "rgba(255,255,255,0.86)",
+          borderBottom: "3px solid rgba(255,255,255,0.92)",
+          boxShadow: "0 16px 32px rgba(36, 50, 74, 0.08)",
         }}
       >
-        <div className="max-w-6xl mx-auto px-6 py-4 flex flex-wrap justify-center gap-4">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex flex-wrap items-center justify-center gap-4">
           {navItems.map((item) => (
             <Link key={item.href} href={item.href} className="btn" style={item.style}>
               {item.label}
