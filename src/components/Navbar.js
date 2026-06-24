@@ -9,6 +9,12 @@ export default function Navbar() {
   const [hydrated, setHydrated] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const navButtonStyles = {
+    home: { background: "var(--yellow)", color: "#523800" },
+    parents: { background: "var(--pink)", color: "#7a1630" },
+    agenda: { background: "var(--green)", color: "#063b2f" },
+    login: { background: "var(--purple)", color: "white" },
+  };
 
   useEffect(() => {
     const storedUser = localStorage.getItem("music_user");
@@ -33,17 +39,14 @@ export default function Navbar() {
   const closeMobileMenu = () => setMobileOpen(false);
 
   const navItems = [
-    { href: "/", label: "🏠 Home", style: {} },
-    { href: "/klokkenspel", label: "🎵 Klokkenspel", style: { background: "var(--yellow)", color: "#333" } },
-    { href: "/trommel", label: "🥁 Trommel", style: { background: "var(--pink)", color: "#333" } },
-    { href: "/pbuzz", label: "🎺 Pbuzz", style: { background: "var(--purple)" } },
+    { href: "/", label: "🏠 Home", style: navButtonStyles.home },
   ];
 
   if (user) {
-    navItems.push({ href: "/agenda", label: "📅 Agenda", style: { background: "var(--green)", color: "#333" } });
+    navItems.push({ href: "/agenda", label: "📅 Agenda", style: navButtonStyles.agenda });
   }
 
-  navItems.push({ href: "/ouders", label: "👨‍👩‍👧 Ouders", style: {} });
+  navItems.push({ href: "/ouders", label: "👨‍👩‍👧 Ouders", style: navButtonStyles.parents });
 
   return (
     <>
@@ -55,7 +58,7 @@ export default function Navbar() {
         }}
       >
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3">
-          <Link href="/" className="btn shrink-0" onClick={closeMobileMenu}>
+          <Link href="/" className="btn shrink-0" style={navButtonStyles.home} onClick={closeMobileMenu}>
             🏠 Home
           </Link>
 
@@ -96,7 +99,7 @@ export default function Navbar() {
               ))}
 
               {!user ? (
-                <Link href="/login" className="btn text-center" onClick={closeMobileMenu}>
+                <Link href="/login" className="btn text-center" style={navButtonStyles.login} onClick={closeMobileMenu}>
                   Inloggen
                 </Link>
               ) : (
@@ -136,7 +139,7 @@ export default function Navbar() {
 
           <div className="ml-auto flex items-center gap-3">
             {!user && (
-              <Link href="/login" className="btn">
+              <Link href="/login" className="btn" style={navButtonStyles.login}>
                 Inloggen
               </Link>
             )}
