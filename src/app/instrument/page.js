@@ -88,10 +88,6 @@ export default function InstrumentPage() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [current.notes]);
 
-  useEffect(() => {
-    setActiveNote(null);
-  }, [instrument]);
-
   return (
     <main className="relative min-h-screen overflow-hidden p-8 md:p-12" style={{ background: "var(--bg-soft)" }}>
       <div
@@ -129,7 +125,10 @@ export default function InstrumentPage() {
                 <button
                   key={key}
                   type="button"
-                  onClick={() => setInstrument(key)}
+                  onClick={() => {
+                    setActiveNote(null);
+                    setInstrument(key);
+                  }}
                   className="relative flex-1 overflow-hidden rounded-full px-4 py-3 text-sm font-bold transition-all duration-300"
                   style={{
                     background: isActive

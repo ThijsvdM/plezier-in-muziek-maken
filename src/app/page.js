@@ -39,8 +39,8 @@ export default function Home() {
         </p>
 
         <div className="mt-6 flex flex-wrap justify-center gap-3">
-          <span className="badge" style={{ background: "var(--yellow)", color: "#4a3500" }}>Voor tablet en mobiel</span>
-          <span className="badge" style={{ background: "var(--green)", color: "#064e3b" }}>Extra hulp bij je lesboek</span>
+          <span className="badge" style={{ background: "var(--yellow)", color: "#4a3500" }}>Extra hulp bij je lesboek</span>
+          <span className="badge" style={{ background: "var(--green)", color: "#064e3b" }}>Via je tablet, mobiel of PC</span>
           <span className="badge" style={{ background: "var(--pink)", color: "#6f2240" }}>Spelen, oefenen, ontdekken</span>
         </div>
       </div>

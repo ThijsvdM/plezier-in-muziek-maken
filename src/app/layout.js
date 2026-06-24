@@ -1,5 +1,4 @@
 import Navbar from "../components/Navbar";
-import Mascot from "../components/Mascot";
 import "./globals.css";
 import "./theme.css";
 
@@ -19,8 +18,6 @@ export default function RootLayout({ children }) {
         <Navbar />
 
         {children}
-
-        <Mascot />
 
       </body>
     </html>
