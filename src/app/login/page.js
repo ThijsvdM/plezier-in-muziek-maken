@@ -24,6 +24,9 @@ const normalizeUser = (user) => ({
     : user.username === "docent"
       ? 10
       : 5,
+  submissionAddress: typeof user.submissionAddress === "string"
+    ? user.submissionAddress
+    : "",
 });
 
 export default function LoginPage() {

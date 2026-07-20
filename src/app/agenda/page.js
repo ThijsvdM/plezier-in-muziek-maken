@@ -9,11 +9,13 @@ const defaultUsers = [
     username: "leerling",
     password: "muziek123",
     maxUnlockedLesson: 5,
+    submissionAddress: "",
   },
   {
     username: "docent",
     password: "drummen",
     maxUnlockedLesson: 10,
+    submissionAddress: "",
   },
 ];
 
@@ -27,6 +29,9 @@ const normalizeUser = (user) => ({
     : user.username === "docent"
       ? 10
       : 5,
+  submissionAddress: typeof user.submissionAddress === "string"
+    ? user.submissionAddress
+    : "",
 });
 
 const sortEventsByDateTime = (items) =>
@@ -107,6 +112,7 @@ export default function AgendaPage() {
   const [editingId, setEditingId] = useState(null);
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [newSubmissionAddress, setNewSubmissionAddress] = useState("");
   const [userError, setUserError] = useState("");
   const unlockedLessonOptions = [5, 6, 7, 8, 9, 10];
 
@@ -181,11 +187,13 @@ export default function AgendaPage() {
       username: newUsername,
       password: newPassword,
       maxUnlockedLesson: 5,
+      submissionAddress: newSubmissionAddress.trim(),
     };
 
     setUsers((current) => [...current, newUser]);
     setNewUsername("");
     setNewPassword("");
+    setNewSubmissionAddress("");
   };
 
   const handleUpdateUserUnlocks = (usernameToUpdate, lessonNumber) => {
@@ -205,6 +213,16 @@ export default function AgendaPage() {
 
     setUsers((current) => current.filter((userItem) => userItem.username !== usernameToDelete));
     setEvents((current) => current.filter((item) => item.assignedTo !== usernameToDelete));
+  };
+
+  const handleUpdateSubmissionAddress = (usernameToUpdate, submissionAddress) => {
+    setUsers((current) =>
+      current.map((userItem) =>
+        userItem.username === usernameToUpdate
+          ? { ...userItem, submissionAddress }
+          : userItem
+      )
+    );
   };
 
   const handleEditEvent = (eventItem) => {
@@ -326,6 +344,13 @@ export default function AgendaPage() {
                       onChange={(e) => setNewPassword(e.target.value)}
                       className="input"
                     />
+                    <input
+                      type="text"
+                      placeholder="Inleveradres (mail of link)"
+                      value={newSubmissionAddress}
+                      onChange={(e) => setNewSubmissionAddress(e.target.value)}
+                      className="input md:col-span-2"
+                    />
                   </div>
                   {userError && <div className="error-box">{userError}</div>}
                   <button type="button" className="btn w-full clickable" onClick={handleAddUser}>
@@ -341,6 +366,13 @@ export default function AgendaPage() {
                         <div>
                           <span className="font-bold">{userItem.username}</span>
                           <p className="subtitle mt-1">Ontgrendeld t/m les {userItem.maxUnlockedLesson ?? 5}</p>
+                          <input
+                            type="text"
+                            placeholder="Inleveradres (mail of link)"
+                            value={userItem.submissionAddress || ""}
+                            onChange={(e) => handleUpdateSubmissionAddress(userItem.username, e.target.value)}
+                            className="input mt-3"
+                          />
                         </div>
                         <select
                           value={userItem.maxUnlockedLesson ?? 5}

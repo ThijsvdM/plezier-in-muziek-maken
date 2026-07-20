@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Lesson4VideoAssignment from "./Lesson4VideoAssignment";
 
 const HANDBOOK_EXTRAS = {
   Klokkenspel: {
@@ -369,6 +370,10 @@ export default function LessonPage({
             ))}
           </ul>
         </section>
+      )}
+
+      {lessonNumber === 4 && (
+        <Lesson4VideoAssignment instrumentName={instrumentName} />
       )}
 
       <section className="card mb-8">
