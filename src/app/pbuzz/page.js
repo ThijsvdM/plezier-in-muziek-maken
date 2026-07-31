@@ -3,6 +3,19 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
+const PBUZZ_LESSONS = [
+  { number: 1, icon: "🎺", title: "Eerste tonen blazen" },
+  { number: 2, icon: "🎼", title: "Noten langer en korter" },
+  { number: 3, icon: "📈", title: "Nieuwe tonen en inzetten" },
+  { number: 4, icon: "⏱️", title: "Tempo en zacht-hard" },
+  { number: 5, icon: "🎤", title: "Oefenen voor optreden" },
+  { number: 6, icon: "🤝", title: "Samen in lagen spelen" },
+  { number: 7, icon: "🎬", title: "Filmmuziek: Jurassic Park" },
+  { number: 8, icon: "🎯", title: "Puntnoot en glij-effect" },
+  { number: 9, icon: "🔁", title: "Herhalen met Happy" },
+  { number: 10, icon: "🎉", title: "Feestelijke afsluiting" },
+];
+
 export default function Pbuzz() {
   const [maxUnlockedLesson, setMaxUnlockedLesson] = useState(1);
 
@@ -63,89 +76,20 @@ export default function Pbuzz() {
       </div>
 
       <section className="relative grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        <Link href="/pbuzz/les-1" className="card text-center clickable">
-          <div className="text-5xl mb-3">🎺</div>
-          <h2 className="text-xl font-bold mb-2" style={{ color: "var(--purple)" }}>Les 1</h2>
-          <p className="subtitle">Eerste tonen blazen</p>
-          <div className="badge mt-4">✅ Beschikbaar</div>
-        </Link>
-
-        {canAccessLesson(2) ? (
-          <Link href="/pbuzz/les-2" className="card text-center clickable">
-            <div className="text-5xl mb-3">🎵</div>
-            <h2 className="text-xl font-bold mb-2">Les 2</h2>
-            <p className="subtitle">Melodie oefenen</p>
-            <div className="badge mt-4">✅ Beschikbaar</div>
-          </Link>
-        ) : (
-          <div className="card text-center opacity-60">
-            <div className="text-5xl mb-3">🔒</div>
-            <h2 className="text-xl font-bold mb-2">Les 2</h2>
-            <p className="subtitle">Log in om te ontgrendelen</p>
-            <div className="badge mt-4">🔒 Locked</div>
-          </div>
-        )}
-
-        {canAccessLesson(3) ? (
-          <Link href="/pbuzz/les-3" className="card text-center clickable">
-            <div className="text-5xl mb-3">🏆</div>
-            <h2 className="text-xl font-bold mb-2" style={{ color: "var(--green)" }}>Les 3</h2>
-            <p className="subtitle">Eerste echte melodie</p>
-            <div className="badge mt-4">✅ Beschikbaar</div>
-          </Link>
-        ) : (
-          <div className="card text-center opacity-60">
-            <div className="text-5xl mb-3">🔒</div>
-            <h2 className="text-xl font-bold mb-2">Les 3</h2>
-            <p className="subtitle">Log in om te ontgrendelen</p>
-            <div className="badge mt-4">🔒 Locked</div>
-          </div>
-        )}
-
-        {canAccessLesson(4) ? (
-          <Link href="/pbuzz/les-4" className="card text-center clickable">
-            <div className="text-5xl mb-3">🎺</div>
-            <h2 className="text-xl font-bold mb-2">Les 4</h2>
-            <p className="subtitle">Nieuwe tonen ontdekken</p>
-            <div className="badge mt-4">✅ Beschikbaar</div>
-          </Link>
-        ) : (
-          <div className="card text-center opacity-60">
-            <div className="text-5xl mb-3">🔒</div>
-            <h2 className="text-xl font-bold mb-2">Les 4</h2>
-            <p className="subtitle">Log in om te ontgrendelen</p>
-            <div className="badge mt-4">🔒 Locked</div>
-          </div>
-        )}
-
-        {canAccessLesson(5) ? (
-          <Link href="/pbuzz/les-5" className="card text-center clickable">
-            <div className="text-5xl mb-3">🎺</div>
-            <h2 className="text-xl font-bold mb-2">Les 5</h2>
-            <p className="subtitle">Klein melodietje spelen</p>
-            <div className="badge mt-4">✅ Beschikbaar</div>
-          </Link>
-        ) : (
-          <div className="card text-center opacity-60">
-            <div className="text-5xl mb-3">🔒</div>
-            <h2 className="text-xl font-bold mb-2">Les 5</h2>
-            <p className="subtitle">Log in om te ontgrendelen</p>
-            <div className="badge mt-4">🔒 Locked</div>
-          </div>
-        )}
-
-        {[6, 7, 8, 9, 10].map((n) =>
-          canAccessLesson(n) ? (
-            <Link key={n} href={`/pbuzz/les-${n}`} className="card text-center clickable">
-              <div className="text-5xl mb-3">🎺</div>
-              <h2 className="text-xl font-bold mb-2" style={{ color: "var(--green)" }}>Les {n}</h2>
-              <p className="subtitle">Ontgrendeld door de docent</p>
+        {PBUZZ_LESSONS.map((lesson) =>
+          canAccessLesson(lesson.number) ? (
+            <Link key={lesson.number} href={`/pbuzz/les-${lesson.number}`} className="card text-center clickable">
+              <div className="text-5xl mb-3">{lesson.icon}</div>
+              <h2 className="text-xl font-bold mb-2" style={{ color: lesson.number === 1 ? "var(--purple)" : "var(--green)" }}>
+                Les {lesson.number}
+              </h2>
+              <p className="subtitle">{lesson.title}</p>
               <div className="badge mt-4">✅ Beschikbaar</div>
             </Link>
           ) : (
-            <div key={n} className="card text-center opacity-60">
+            <div key={lesson.number} className="card text-center opacity-60">
               <div className="text-5xl mb-3">🔒</div>
-              <h2 className="text-xl font-bold mb-2">Les {n}</h2>
+              <h2 className="text-xl font-bold mb-2">Les {lesson.number}</h2>
               <p className="subtitle">Afgesloten tot later</p>
               <div className="badge mt-4">🔒 Locked</div>
             </div>

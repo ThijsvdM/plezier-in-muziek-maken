@@ -3,6 +3,19 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
+const KLOKKENSPEL_LESSONS = [
+  { number: 1, icon: "🔔", title: "Kleurennoten ontdekken" },
+  { number: 2, icon: "🎼", title: "Noten langer en korter" },
+  { number: 3, icon: "📈", title: "Nieuwe noten spelen" },
+  { number: 4, icon: "⏱️", title: "Tempo en zacht-hard" },
+  { number: 5, icon: "🎤", title: "Oefenen voor optreden" },
+  { number: 6, icon: "🤝", title: "Samen in lagen spelen" },
+  { number: 7, icon: "🎬", title: "Filmmuziek: Jurassic Park" },
+  { number: 8, icon: "🎯", title: "Puntnoot oefenen" },
+  { number: 9, icon: "🔁", title: "Herhalen met Happy" },
+  { number: 10, icon: "🎉", title: "Feestelijke afsluiting" },
+];
+
 export default function Klokkenspel() {
   const [maxUnlockedLesson, setMaxUnlockedLesson] = useState(1);
 
@@ -63,89 +76,20 @@ export default function Klokkenspel() {
       </div>
 
       <section className="relative grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        <Link href="/klokkenspel/les-1" className="card text-center clickable">
-          <div className="text-5xl mb-3">🔔</div>
-          <h2 className="text-xl font-bold mb-2" style={{ color: "var(--primary)" }}>Les 1</h2>
-          <p className="subtitle">Basis noten leren</p>
-          <div className="badge mt-4">✅ Beschikbaar</div>
-        </Link>
-
-        {canAccessLesson(2) ? (
-          <Link href="/klokkenspel/les-2" className="card text-center clickable">
-            <div className="text-5xl mb-3">🎵</div>
-            <h2 className="text-xl font-bold mb-2">Les 2</h2>
-            <p className="subtitle">Melodieen oefenen</p>
-            <div className="badge mt-4">✅ Beschikbaar</div>
-          </Link>
-        ) : (
-          <div className="card text-center opacity-60">
-            <div className="text-5xl mb-3">🔒</div>
-            <h2 className="text-xl font-bold mb-2">Les 2</h2>
-            <p className="subtitle">Log in om te ontgrendelen</p>
-            <div className="badge mt-4">🔒 Locked</div>
-          </div>
-        )}
-
-        {canAccessLesson(3) ? (
-          <Link href="/klokkenspel/les-3" className="card text-center clickable">
-            <div className="text-5xl mb-3">🏆</div>
-            <h2 className="text-xl font-bold mb-2" style={{ color: "var(--green)" }}>Les 3</h2>
-            <p className="subtitle">Eerste echte melodie</p>
-            <div className="badge mt-4">✅ Beschikbaar</div>
-          </Link>
-        ) : (
-          <div className="card text-center opacity-60">
-            <div className="text-5xl mb-3">🔒</div>
-            <h2 className="text-xl font-bold mb-2">Les 3</h2>
-            <p className="subtitle">Log in om te ontgrendelen</p>
-            <div className="badge mt-4">🔒 Locked</div>
-          </div>
-        )}
-
-        {canAccessLesson(4) ? (
-          <Link href="/klokkenspel/les-4" className="card text-center clickable">
-            <div className="text-5xl mb-3">🎵</div>
-            <h2 className="text-xl font-bold mb-2">Les 4</h2>
-            <p className="subtitle">Nieuwe noten ontdekken</p>
-            <div className="badge mt-4">✅ Beschikbaar</div>
-          </Link>
-        ) : (
-          <div className="card text-center opacity-60">
-            <div className="text-5xl mb-3">🔒</div>
-            <h2 className="text-xl font-bold mb-2">Les 4</h2>
-            <p className="subtitle">Log in om te ontgrendelen</p>
-            <div className="badge mt-4">🔒 Locked</div>
-          </div>
-        )}
-
-        {canAccessLesson(5) ? (
-          <Link href="/klokkenspel/les-5" className="card text-center clickable">
-            <div className="text-5xl mb-3">🎵</div>
-            <h2 className="text-xl font-bold mb-2">Les 5</h2>
-            <p className="subtitle">Melodie langer maken</p>
-            <div className="badge mt-4">✅ Beschikbaar</div>
-          </Link>
-        ) : (
-          <div className="card text-center opacity-60">
-            <div className="text-5xl mb-3">🔒</div>
-            <h2 className="text-xl font-bold mb-2">Les 5</h2>
-            <p className="subtitle">Log in om te ontgrendelen</p>
-            <div className="badge mt-4">🔒 Locked</div>
-          </div>
-        )}
-
-        {[6, 7, 8, 9, 10].map((n) =>
-          canAccessLesson(n) ? (
-            <Link key={n} href={`/klokkenspel/les-${n}`} className="card text-center clickable">
-              <div className="text-5xl mb-3">🔔</div>
-              <h2 className="text-xl font-bold mb-2" style={{ color: "var(--green)" }}>Les {n}</h2>
-              <p className="subtitle">Ontgrendeld door de docent</p>
+        {KLOKKENSPEL_LESSONS.map((lesson) =>
+          canAccessLesson(lesson.number) ? (
+            <Link key={lesson.number} href={`/klokkenspel/les-${lesson.number}`} className="card text-center clickable">
+              <div className="text-5xl mb-3">{lesson.icon}</div>
+              <h2 className="text-xl font-bold mb-2" style={{ color: lesson.number === 1 ? "var(--primary)" : "var(--green)" }}>
+                Les {lesson.number}
+              </h2>
+              <p className="subtitle">{lesson.title}</p>
               <div className="badge mt-4">✅ Beschikbaar</div>
             </Link>
           ) : (
-            <div key={n} className="card text-center opacity-60">
+            <div key={lesson.number} className="card text-center opacity-60">
               <div className="text-5xl mb-3">🔒</div>
-              <h2 className="text-xl font-bold mb-2">Les {n}</h2>
+              <h2 className="text-xl font-bold mb-2">Les {lesson.number}</h2>
               <p className="subtitle">Afgesloten tot later</p>
               <div className="badge mt-4">🔒 Locked</div>
             </div>
