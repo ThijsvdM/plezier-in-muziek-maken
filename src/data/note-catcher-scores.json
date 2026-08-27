@@ -1,0 +1,20 @@
+[
+  {
+    "accountId": "user:leerling",
+    "name": "Thijs",
+    "score": 60,
+    "createdAt": "2026-08-27T18:12:03.013Z"
+  },
+  {
+    "accountId": "legacy:0:2026-08-27t18:03:22.997z",
+    "name": "Thijs",
+    "score": 25,
+    "createdAt": "2026-08-27T18:03:22.997Z"
+  },
+  {
+    "accountId": "legacy:1:2026-08-27t18:07:01.272z",
+    "name": "Thijs",
+    "score": 17,
+    "createdAt": "2026-08-27T18:07:01.272Z"
+  }
+]

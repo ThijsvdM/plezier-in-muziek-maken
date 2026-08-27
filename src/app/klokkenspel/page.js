@@ -70,9 +70,14 @@ export default function Klokkenspel() {
         <h1 className="title">Jouw lessen</h1>
         <p className="subtitle">Kies een les of ga oefenen op het instrument</p>
 
-        <Link href="/instrument" className="btn mt-6 inline-block">
-          🎹 Ga naar het instrument
-        </Link>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <Link href="/instrument" className="btn inline-block">
+            🎹 Ga naar het instrument
+          </Link>
+          <Link href="/notenvanger" className="btn inline-block" style={{ background: "var(--green)", boxShadow: "0 8px 0 rgba(4,120,87,0.2), 0 14px 24px rgba(6,214,160,0.28)" }}>
+            🎮 Speel notenvanger
+          </Link>
+        </div>
       </div>
 
       <section className="relative grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">

@@ -73,6 +73,12 @@ export default function Trommel() {
           <br />
           <i>Een tafel, 2 wijsvingers en een beetje fantasie is soms de leukste trommel.</i>
         </p>
+
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <Link href="/notenvanger" className="btn inline-block" style={{ background: "var(--green)", boxShadow: "0 8px 0 rgba(4,120,87,0.2), 0 14px 24px rgba(6,214,160,0.28)" }}>
+            🎮 Speel notenvanger
+          </Link>
+        </div>
       </div>
 
       <section className="relative grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
