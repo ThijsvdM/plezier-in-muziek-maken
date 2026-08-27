@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function OudersPage() {
   return (
     <main
@@ -158,14 +160,20 @@ export default function OudersPage() {
               </p>
             </div>
 
-            <a
-              href="https://www.onsgenoegen.org"
-              target="_blank"
-              rel="noreferrer"
-              className="btn"
-            >
-              Meer over muziekeducatie 🎵
-            </a>
+            <div className="flex flex-col gap-3">
+              <a
+                href="https://www.onsgenoegen.org"
+                target="_blank"
+                rel="noreferrer"
+                className="btn"
+              >
+                Meer over muziekeducatie 🎵
+              </a>
+
+              <Link href="/contact" className="btn">
+                Contact opnemen
+              </Link>
+            </div>
           </div>
         </section>
       </div>
