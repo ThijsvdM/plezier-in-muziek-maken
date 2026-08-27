@@ -60,60 +60,56 @@ export default function OudersPage() {
           </div>
         </section>
 
-        <div className="grid gap-8 lg:grid-cols-3 mb-8 md:mb-10">
-          <section className="card">
-            <h2 className="text-2xl font-black mb-4" style={{ color: "var(--primary)" }}>
-              🧠 Waarom doen we dit?
-            </h2>
-            <p className="subtitle mb-4">
-              Onderzoek laat zien dat muziek invloed heeft op:
-            </p>
-            <ul className="space-y-3">
-              <li className="badge block text-center py-3">Concentratie en focus</li>
-              <li className="badge block text-center py-3">Geheugen en taalontwikkeling</li>
-              <li className="badge block text-center py-3">Creativiteit en probleemoplossend denken</li>
-              <li className="badge block text-center py-3">Zelfvertrouwen</li>
-            </ul>
-          </section>
+        <section className="card mb-8 md:mb-10">
+          <h2 className="text-2xl font-black mb-4" style={{ color: "var(--purple)" }}>
+            🎼 De instrumenten en hoe ze gebruikt worden
+          </h2>
 
-          <section className="card lg:col-span-2">
-            <h2 className="text-2xl font-black mb-4" style={{ color: "var(--purple)" }}>
-              🎼 De instrumenten
-            </h2>
+          <p className="subtitle mb-5">
+            We hebben de inhoud aangevuld met instrumentkennis uit muziekonderwijs en basisinformatie over speeltechniek. Zo krijgt u beter zicht op wat uw kind precies oefent.
+          </p>
 
-            <div className="grid gap-4 md:grid-cols-3">
-              <article className="card bg-white shadow-none">
-                <div className="text-4xl mb-3">🎵</div>
-                <h3 className="font-black mb-2" style={{ color: "var(--primary)" }}>
-                  Klokkenspel
-                </h3>
-                <p className="subtitle text-sm">
-                  Gekleurde noten maken meteen zichtbaar welke toon gespeeld moet worden.
-                </p>
-              </article>
+          <div className="grid gap-4 md:grid-cols-3">
+            <article className="card bg-white shadow-none">
+              <div className="text-4xl mb-3">🎵</div>
+              <h3 className="font-black mb-2" style={{ color: "var(--primary)" }}>
+                Klokkenspel
+              </h3>
+              <p className="subtitle text-sm mb-3">
+                Een klokkenspel heeft metalen staven (geen houten, zoals bij een xylofoon) en klinkt helder en hoog. Het instrument helpt bij toonhoogteherkenning.
+              </p>
+              <p className="subtitle text-sm">
+                Gebruik: laat uw kind met rustige, korte tikken spelen en de stokken losjes vasthouden. Eerst langzaam van laag naar hoog, daarna pas melodietjes.
+              </p>
+            </article>
 
-              <article className="card bg-white shadow-none">
-                <div className="text-4xl mb-3">🥁</div>
-                <h3 className="font-black mb-2" style={{ color: "var(--pink)" }}>
-                  Trommel
-                </h3>
-                <p className="subtitle text-sm">
-                  Ritme en timing staan centraal, met duidelijke patronen die kinderen kunnen volgen.
-                </p>
-              </article>
+            <article className="card bg-white shadow-none">
+              <div className="text-4xl mb-3">🥁</div>
+              <h3 className="font-black mb-2" style={{ color: "var(--pink)" }}>
+                Trommel
+              </h3>
+              <p className="subtitle text-sm mb-3">
+                Bij trommel draait het om ritme, timing en controle. Eenvoudige slagen en herhaling bouwen een stabiel maatgevoel op.
+              </p>
+              <p className="subtitle text-sm">
+                Gebruik: oefen met ontspannen polsen, afwisselend rechts-links en zachte rebound. Kwaliteit is belangrijker dan hard of snel spelen.
+              </p>
+            </article>
 
-              <article className="card bg-white shadow-none">
-                <div className="text-4xl mb-3">🎺</div>
-                <h3 className="font-black mb-2" style={{ color: "var(--purple)" }}>
-                  pBuzz
-                </h3>
-                <p className="subtitle text-sm">
-                  Ademhaling, toonvorming en kleurcodes helpen kinderen stap voor stap vooruit.
-                </p>
-              </article>
-            </div>
-          </section>
-        </div>
+            <article className="card bg-white shadow-none">
+              <div className="text-4xl mb-3">🎺</div>
+              <h3 className="font-black mb-2" style={{ color: "var(--purple)" }}>
+                pBuzz
+              </h3>
+              <p className="subtitle text-sm mb-3">
+                De pBuzz is een kunststof instrument met een uitschuifbare buis. Daardoor lijkt het qua speelidee op een trombone.
+              </p>
+              <p className="subtitle text-sm">
+                Gebruik: begin met een rechte houding, rustige ademhaling en korte speelmomenten. Focus eerst op een stabiele toon, daarna op toonwisselingen.
+              </p>
+            </article>
+          </div>
+        </section>
 
         <div className="grid gap-8 lg:grid-cols-2 mb-8 md:mb-10">
           <section className="card">

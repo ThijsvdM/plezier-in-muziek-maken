@@ -115,8 +115,14 @@ export async function GET() {
 export async function POST(request) {
   try {
     const body = await request.json();
+    const accountId = sanitizeAccountId(body?.accountId);
+
+    if (!accountId.startsWith("user:")) {
+      return noStoreJson({ message: "Je moet ingelogd zijn om scores op te slaan." }, 401);
+    }
+
     const newScore = {
-      accountId: sanitizeAccountId(body?.accountId),
+      accountId,
       name: sanitizeName(body?.name),
       score: sanitizeScore(body?.score),
       createdAt: new Date().toISOString(),

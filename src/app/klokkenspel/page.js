@@ -18,6 +18,7 @@ const KLOKKENSPEL_LESSONS = [
 
 export default function Klokkenspel() {
   const [maxUnlockedLesson, setMaxUnlockedLesson] = useState(1);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const getMaxUnlockedLesson = () => {
     if (typeof window === "undefined") return 1;
@@ -50,6 +51,8 @@ export default function Klokkenspel() {
 
   useEffect(() => {
     const refreshAccess = () => {
+      const currentUser = typeof window !== "undefined" ? localStorage.getItem("music_user") : null;
+      setIsLoggedIn(Boolean(currentUser));
       setMaxUnlockedLesson(getMaxUnlockedLesson());
     };
 
@@ -95,7 +98,7 @@ export default function Klokkenspel() {
             <div key={lesson.number} className="card text-center opacity-60">
               <div className="text-5xl mb-3">🔒</div>
               <h2 className="text-xl font-bold mb-2">Les {lesson.number}</h2>
-              <p className="subtitle">Afgesloten tot later</p>
+              <p className="subtitle">{isLoggedIn ? "Afgesloten tot later" : "Log in om deze les te bekijken"}</p>
               <div className="badge mt-4">🔒 Locked</div>
             </div>
           )

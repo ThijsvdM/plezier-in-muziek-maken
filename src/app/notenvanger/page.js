@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 
 const POINTS = {
   quarter: 1,
@@ -61,6 +62,10 @@ export default function NotenvangerPage() {
   const [leaderboard, setLeaderboard] = useState([]);
   const [loadingBoard, setLoadingBoard] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return Boolean(localStorage.getItem("music_user"));
+  });
 
   const gameRef = useRef({
     items: [],
@@ -100,6 +105,20 @@ export default function NotenvangerPage() {
     return () => window.cancelAnimationFrame(frame);
   }, [fetchLeaderboard]);
 
+  useEffect(() => {
+    const refreshLoginState = () => {
+      setIsLoggedIn(Boolean(localStorage.getItem("music_user")));
+    };
+
+    window.addEventListener("storage", refreshLoginState);
+    window.addEventListener("focus", refreshLoginState);
+
+    return () => {
+      window.removeEventListener("storage", refreshLoginState);
+      window.removeEventListener("focus", refreshLoginState);
+    };
+  }, []);
+
   const clearGameTimer = () => {
     if (gameRef.current.timer) {
       window.clearInterval(gameRef.current.timer);
@@ -116,6 +135,11 @@ export default function NotenvangerPage() {
   }, []);
 
   const startGame = useCallback(() => {
+    if (!isLoggedIn) {
+      setErrorMessage("Log eerst in om de notenvanger te spelen.");
+      return;
+    }
+
     clearGameTimer();
 
     gameRef.current.items = [];
@@ -130,6 +154,7 @@ export default function NotenvangerPage() {
     setPlayerX(50);
     setSubmitted(false);
     setGameStatus("running");
+    setErrorMessage("");
 
     gameRef.current.timer = window.setInterval(() => {
       const state = gameRef.current;
@@ -196,7 +221,7 @@ export default function NotenvangerPage() {
         endGame();
       }
     }, 42);
-  }, [endGame]);
+  }, [endGame, isLoggedIn]);
 
   const movePlayerTo = useCallback((value) => {
     if (!isRunning) return;
@@ -249,23 +274,13 @@ export default function NotenvangerPage() {
 
     if (!isGameOver || submitted) return;
 
-    let accountId = "anonymous";
-    if (typeof window !== "undefined") {
-      const storedUser = localStorage.getItem("music_user");
-
-      if (storedUser) {
-        accountId = `user:${storedUser.trim().toLowerCase()}`;
-      } else {
-        const storedDeviceId = localStorage.getItem("music_device_id");
-        if (storedDeviceId) {
-          accountId = `device:${storedDeviceId}`;
-        } else {
-          const newDeviceId = crypto.randomUUID();
-          localStorage.setItem("music_device_id", newDeviceId);
-          accountId = `device:${newDeviceId}`;
-        }
-      }
+    const storedUser = typeof window !== "undefined" ? localStorage.getItem("music_user") : "";
+    if (!storedUser) {
+      setErrorMessage("Log eerst in om een score op te slaan.");
+      return;
     }
+
+    const accountId = `user:${storedUser.trim().toLowerCase()}`;
 
     try {
       const response = await fetch("/api/note-catcher-scores", {
@@ -370,25 +385,39 @@ export default function NotenvangerPage() {
 
               {!isRunning && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-white/75 backdrop-blur-sm p-6 text-center">
-                  <h3 className="text-2xl font-black" style={{ color: "var(--primary-dark)" }}>
-                    {isGameOver ? "Game over" : "Klaar voor de start?"}
-                  </h3>
-                  <p className="subtitle max-w-xl">
-                    {isGameOver
-                      ? "Je raakte een rust. Vul je naam in en sla op."
-                      : "Start en vang zoveel mogelijk noten."}
-                  </p>
-                  <button type="button" className="btn" style={staticButtonStyle} onClick={startGame}>Start spel</button>
+                  {!isLoggedIn ? (
+                    <>
+                      <h3 className="text-2xl font-black" style={{ color: "var(--primary-dark)" }}>
+                        Eerst inloggen
+                      </h3>
+                      <p className="subtitle max-w-xl">
+                        Je moet ingelogd zijn om Notenvanger te kunnen spelen.
+                      </p>
+                      <Link href="/login" className="btn" style={staticButtonStyle}>Ga naar inloggen</Link>
+                    </>
+                  ) : (
+                    <>
+                      <h3 className="text-2xl font-black" style={{ color: "var(--primary-dark)" }}>
+                        {isGameOver ? "Game over" : "Klaar voor de start?"}
+                      </h3>
+                      <p className="subtitle max-w-xl">
+                        {isGameOver
+                          ? "Je raakte een rust. Vul je naam in en sla op."
+                          : "Start en vang zoveel mogelijk noten."}
+                      </p>
+                      <button type="button" className="btn" style={staticButtonStyle} onClick={startGame}>Start spel</button>
+                    </>
+                  )}
                 </div>
               )}
             </div>
 
             <div className="mt-3 flex flex-wrap gap-2">
-              <button type="button" className="btn" style={staticButtonStyle} onClick={() => movePlayerTo(playerX - 9)} disabled={!isRunning}>⬅ Links</button>
-              <button type="button" className="btn" style={staticButtonStyle} onClick={() => movePlayerTo(playerX + 9)} disabled={!isRunning}>Rechts ➡</button>
+              <button type="button" className="btn" style={staticButtonStyle} onClick={() => movePlayerTo(playerX - 9)} disabled={!isRunning || !isLoggedIn}>⬅ Links</button>
+              <button type="button" className="btn" style={staticButtonStyle} onClick={() => movePlayerTo(playerX + 9)} disabled={!isRunning || !isLoggedIn}>Rechts ➡</button>
             </div>
 
-            {isGameOver && (
+            {isLoggedIn && isGameOver && (
               <form className="mt-4 rounded-xl border p-3" style={{ borderColor: "var(--border)", background: "#fff" }} onSubmit={submitScore}>
                 <p className="font-bold mb-2">Jouw score: {score}</p>
                 <label htmlFor="player-name" className="subtitle block mb-2">Naam voor leaderboard</label>
