@@ -627,7 +627,10 @@ const HANDBOOK_CONTENT = {
         "Tel hardop mee terwijl je slaat.",
       ],
       musicParts: [
-        { title: "Grip en basisslag", embedUrl: "" },
+        {
+          title: "Video: zo houd je de trommelstokken goed vast (les 1)",
+          embedUrl: "https://www.youtube.com/embed/YnyaKLtjFXo",
+        },
         { title: "Ritme met trommel en tik-noot", embedUrl: "" },
       ],
       practiceParagraph: "Oefen de stokgreep eerst zonder te slaan. Speel daarna rustig het eerste ritme.",

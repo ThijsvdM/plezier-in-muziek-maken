@@ -10,8 +10,8 @@ const POINTS = {
 };
 
 const NOTE_META = {
-  quarter: { emoji: "♪", label: "Kwartnoot", color: "#16c760" },
-  half: { emoji: "♩", label: "Halve noot", color: "#0693e3" },
+  quarter: { emoji: "♩", label: "Kwartnoot", color: "#16c760" },
+  half: { emoji: "𝅗𝅥", label: "Halve noot", color: "#0693e3" },
   whole: { emoji: "𝅝", label: "Hele noot", color: "#7b61ff" },
   rest: { emoji: "𝄽", label: "Rust", color: "#cf2e2e" },
 };
@@ -308,8 +308,8 @@ export default function NotenvangerPage() {
 
   const scoreLegend = useMemo(
     () => [
-      { symbol: "♪", label: "Kwartnoot", points: 1, color: "var(--green)" },
-      { symbol: "♩", label: "Halve noot", points: 2, color: "var(--primary)" },
+      { symbol: "♩", label: "Kwartnoot", points: 1, color: "var(--green)" },
+      { symbol: "𝅗𝅥", label: "Halve noot", points: 2, color: "var(--primary)" },
       { symbol: "𝅝", label: "Hele noot", points: 4, color: "var(--purple)" },
       { symbol: "𝄽", label: "Rust", points: 0, color: "var(--danger)", extra: "Game over" },
     ],
