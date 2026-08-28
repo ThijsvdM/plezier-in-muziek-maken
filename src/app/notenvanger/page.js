@@ -22,13 +22,17 @@ const CATCH_ZONE_X_DISTANCE = 5.8;
 
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 
-const createItem = (id, lane, y = -12, speedBoost = 0) => {
+const createItem = (id, lane, y = -12, speedBoost = 0, restChance = 0.14) => {
   const random = Math.random();
+  const safeRestChance = clamp(restChance, 0.1, 0.36);
+  const wholeChance = 0.14;
+  const halfChance = 0.27;
+  const quarterChance = Math.max(0.05, 1 - safeRestChance - wholeChance - halfChance);
 
   let type = "quarter";
-  if (random > 0.45 && random <= 0.72) type = "half";
-  if (random > 0.72 && random <= 0.86) type = "whole";
-  if (random > 0.86) type = "rest";
+  if (random > quarterChance && random <= quarterChance + halfChance) type = "half";
+  if (random > quarterChance + halfChance && random <= quarterChance + halfChance + wholeChance) type = "whole";
+  if (random > quarterChance + halfChance + wholeChance) type = "rest";
 
   return {
     id,
@@ -72,6 +76,7 @@ export default function NotenvangerPage() {
     score: 0,
     playerX: 50,
     nextId: 1,
+    startTime: 0,
     lastSpawn: 0,
     lastBurst: 0,
     burstInterval: 1000,
@@ -145,6 +150,7 @@ export default function NotenvangerPage() {
     gameRef.current.items = [];
     gameRef.current.score = 0;
     gameRef.current.playerX = 50;
+    gameRef.current.startTime = performance.now();
     gameRef.current.lastSpawn = performance.now();
     gameRef.current.lastBurst = performance.now();
     gameRef.current.burstInterval = 760 + Math.random() * 500;
@@ -159,12 +165,14 @@ export default function NotenvangerPage() {
     gameRef.current.timer = window.setInterval(() => {
       const state = gameRef.current;
       const now = performance.now();
+      const elapsedSeconds = Math.max(0, (now - state.startTime) / 1000);
+      const dynamicRestChance = Math.min(0.14 + elapsedSeconds * 0.002, 0.32);
 
       if (now - state.lastSpawn >= 145) {
         const spawns = Math.random() < 0.35 ? 2 : 1;
         for (let index = 0; index < spawns; index += 1) {
           const lane = Math.floor(Math.random() * 8);
-          state.items.push(createItem(state.nextId, lane, -12 - Math.random() * 16));
+          state.items.push(createItem(state.nextId, lane, -12 - Math.random() * 16, 0, dynamicRestChance));
           state.nextId += 1;
         }
         state.lastSpawn = now;
@@ -176,7 +184,7 @@ export default function NotenvangerPage() {
 
         for (let index = 0; index < burstCount; index += 1) {
           const lane = clamp(baseLane + index, 0, 7);
-          state.items.push(createItem(state.nextId, lane, -18 - index * 6, 0.35));
+          state.items.push(createItem(state.nextId, lane, -18 - index * 6, 0.35, dynamicRestChance));
           state.nextId += 1;
         }
 
