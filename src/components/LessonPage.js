@@ -141,10 +141,7 @@ const HANDBOOK_CONTENT = {
         "Adem rustig in als je zenuwachtig bent.",
         "Blijf in de maat, ook als je een noot mist.",
       ],
-      musicParts: [
-        { title: "Repetitie: Oefening 2 uit les 2", embedUrl: "" },
-        { title: "Generale: Eye of the Tiger + I Feel Good", embedUrl: "" },
-      ],
+      musicParts: [],
       practiceParagraph: "Doe thuis een mini-optreden: speel 2 stukken na elkaar zonder stoppen.",
       practiceBullets: [
         "Start elke keer met 4 tellen aftellen.",
@@ -324,8 +321,24 @@ const HANDBOOK_CONTENT = {
         "Schuif pas als je toon stabiel klinkt.",
       ],
       musicParts: [
-        { title: "Eerste toonvorming", embedUrl: "" },
-        { title: "Schuifkleuren F-G-A-Bb-C", embedUrl: "" },
+        {
+          title: "Video: toonladder voorspelen",
+          embedUrl: "https://www.youtube.com/embed/XB_Gi7zPDgo",
+          description: "Toonladder voorspelen.",
+        },
+      ],
+      extraMusicPartsTitle: "Extra videos voor les 1",
+      extraMusicParts: [
+        {
+          title: "Video: oefening 1 voorspelen",
+          embedUrl: "https://www.youtube.com/embed/gpi_s170wI0",
+          description: "Oefening 1 voorspelen.",
+        },
+        {
+          title: "Video: Eye of the tiger voorspelen",
+          embedUrl: "https://www.youtube.com/embed/T7ZYzKcHNPU",
+          description: "Eye of the tiger voorspelen.",
+        },
       ],
       practiceParagraph: "Oefen in korte blokjes: toon maken, schuif kiezen, toon weer netjes afronden.",
       practiceBullets: [
@@ -354,8 +367,32 @@ const HANDBOOK_CONTENT = {
         "Wissel schuif rustig op de tel.",
       ],
       musicParts: [
-        { title: "Nootlengtes met blaassteun", embedUrl: "" },
-        { title: "We Will Rock You blaaspartij", embedUrl: "" },
+        {
+          title: "Video: verschillende nootlengtes oefenen",
+          embedUrl: "https://www.youtube.com/embed/9r0ZQrCvna8",
+          description: "Verschillende nootlengtes oefening voorspelen.",
+        },
+      ],
+      extraMusicPartsTitle: "Extra videos: oefeningen uit het boek",
+      extraMusicParts: [
+        {
+          title: "Video: voorspelen oefening 1",
+          embedUrl: "https://www.youtube.com/embed/HdHj6ZENP_M",
+          description: "Voorspelen oefening 1.",
+        },
+        {
+          title: "Video: voorspelen oefening 2",
+          embedUrl: "https://www.youtube.com/embed/88plWy9QMWk",
+          description: "Voorspelen oefening 2.",
+        },
+      ],
+      finalMusicPartsTitle: "Extra video: We will rock you",
+      finalMusicParts: [
+        {
+          title: "Video: voorspelen We will rock you",
+          embedUrl: "https://www.youtube.com/embed/rqLb0TSwOI4",
+          description: "Voorspelen We will rock you.",
+        },
       ],
       practiceParagraph: "Werk in rondes: eerst lange tonen, dan korte patronen. Let op rustige adem en duidelijke start.",
       practiceBullets: [
@@ -384,8 +421,16 @@ const HANDBOOK_CONTENT = {
         "Laat je toon niet wegvallen bij wissels.",
       ],
       musicParts: [
-        { title: "Alle kleuren op rij", embedUrl: "" },
-        { title: "I Feel Good: eerste deel", embedUrl: "" },
+        {
+          title: "Video: voorspelen I got you t/m maat 30",
+          embedUrl: "https://www.youtube.com/embed/poo48C2iaWE",
+          description: "Voorspelen I got you t/m maat 30.",
+        },
+        {
+          title: "Video: meespeeltrack voor I got you",
+          embedUrl: "https://www.youtube.com/embed/wMOa1lKpFNQ",
+          description: "De meespeeltrack voor I got you.",
+        },
       ],
       practiceParagraph: "Speel eerst kleuren op rij, daarna 1 stukje met rusten. Oefen vooral het moment van inzetten.",
       practiceBullets: [
@@ -415,8 +460,24 @@ const HANDBOOK_CONTENT = {
         "Teken p en f in je boek.",
       ],
       musicParts: [
-        { title: "Tempo-training in 3 stappen", embedUrl: "" },
-        { title: "I Feel Good: rusten en inzetten", embedUrl: "" },
+        {
+          title: "Video: verschillende tempi, oefening 1 uit les 2",
+          embedUrl: "https://www.youtube.com/embed/bRoV7foX8V8",
+          description: "Voorspelen van verschillende tempi oefening 1 les 2.",
+        },
+      ],
+      extraMusicPartsTitle: "Extra videos: I got you",
+      extraMusicParts: [
+        {
+          title: "Video: I got you vanaf maat 43",
+          embedUrl: "https://www.youtube.com/embed/v0yoiaoK-iA",
+          description: "Voorspelen van I got you vanaf maat 43.",
+        },
+        {
+          title: "Video: meespeeltrack voor I got you",
+          embedUrl: "https://www.youtube.com/embed/wMOa1lKpFNQ",
+          description: "De meespeel track voor I got you.",
+        },
       ],
       practiceParagraph: "Kies 1 regel en speel die langzaam, normaal en snel. Doe daarna hetzelfde met zacht en hard.",
       practiceBullets: [
@@ -444,10 +505,7 @@ const HANDBOOK_CONTENT = {
         "Kijk op bij elke nieuwe inzet.",
         "Blijf doorspelen ook als iets niet perfect gaat.",
       ],
-      musicParts: [
-        { title: "Repetitie: Eye of the Tiger", embedUrl: "" },
-        { title: "Generale: I Feel Good", embedUrl: "" },
-      ],
+      musicParts: [],
       practiceParagraph: "Speel thuis 2 nummers achter elkaar zonder pauze. Dit traint je adem en focus voor het optreden.",
       practiceBullets: [
         "Start elke keer met 4 tellen.",
