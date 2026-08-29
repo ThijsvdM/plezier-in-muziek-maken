@@ -63,6 +63,12 @@ export default function Navbar() {
           </Link>
 
           <div className="ml-auto flex items-center gap-2">
+            {!user && (
+              <Link href="/login" className="btn shrink-0" style={navButtonStyles.login} onClick={closeMobileMenu}>
+                Inloggen
+              </Link>
+            )}
+
             {user && (
               <div className="badge hidden sm:inline-flex">👤 {user}</div>
             )}
@@ -98,11 +104,7 @@ export default function Navbar() {
                 </Link>
               ))}
 
-              {!user ? (
-                <Link href="/login" className="btn text-center" style={navButtonStyles.login} onClick={closeMobileMenu}>
-                  Inloggen
-                </Link>
-              ) : (
+              {user && (
                 <button
                   type="button"
                   onClick={() => {

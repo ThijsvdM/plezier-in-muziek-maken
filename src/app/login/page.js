@@ -184,9 +184,7 @@ export default function LoginPage() {
             color: "#6b7280",
           }}
         >
-          Gebruik bijvoorbeeld:
-          <br />
-          <strong>leerling</strong> / muziek123
+          Je kunt inloggen met de gegevens op pagina 3 van je lesboek.
         </div>
 
       </form>
