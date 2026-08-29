@@ -1063,6 +1063,8 @@ export default function LessonPage({
   highlights,
   tips,
   musicPartVideos,
+  centeredLayout = true,
+  centeredMaxWidthClass = "max-w-4xl",
 }) {
   const handbookLesson = HANDBOOK_CONTENT[instrumentName]?.[lessonNumber];
 
@@ -1090,9 +1092,10 @@ export default function LessonPage({
   };
 
   const instrumentHref = `/${instrumentName.toLowerCase()}`;
+  const pageLayoutClassName = centeredLayout ? `${centeredMaxWidthClass} mx-auto` : "";
 
   return (
-    <main className="min-h-screen p-8 md:p-12">
+    <main className={`min-h-screen p-8 md:p-12 ${pageLayoutClassName}`}>
       <div className="mb-10 text-center">
         <h1 className="title mb-3">
           {icon} {instrumentName} - Les {lessonNumber}

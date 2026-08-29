@@ -21,6 +21,8 @@ export default function Les1() {
         "👂 Luister naar de puls",
         "😊 Oefen in korte herhalingen",
       ]}
+      centeredLayout={true}
+      centeredMaxWidthClass="max-w-4xl"
       closingTitle="⭐ Goed gedaan"
       closingText="Je hebt les 1 afgerond."
       nextHref="/trommel/les-2"
