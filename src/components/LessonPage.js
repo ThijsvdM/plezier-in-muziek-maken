@@ -630,8 +630,20 @@ const HANDBOOK_CONTENT = {
         {
           title: "Video: zo houd je de trommelstokken goed vast (les 1)",
           embedUrl: "https://www.youtube.com/embed/YnyaKLtjFXo",
+          description: "In deze video zie je stap voor stap hoe je de stokken vasthoudt voor controle en ontspanning.",
         },
-        { title: "Ritme met trommel en tik-noot", embedUrl: "" },
+      ],
+      extraMusicParts: [
+        {
+          title: "Video: extra uitleg over stokhouding (les 1)",
+          embedUrl: "https://www.youtube.com/embed/erehBkZbSLQ",
+          description: "In deze video wordt het eerste gezamenlijke stuk uit het boek voorgespeeld.",
+        },
+        {
+          title: "Video: basisbewegingen en meespelen (les 1)",
+          embedUrl: "https://www.youtube.com/embed/wOb0Hik0d0c",
+          description: "In deze video wordt het nummer Eye of the Tiger voorgespeeld.",
+        },
       ],
       practiceParagraph: "Oefen de stokgreep eerst zonder te slaan. Speel daarna rustig het eerste ritme.",
       practiceBullets: [
@@ -660,8 +672,32 @@ const HANDBOOK_CONTENT = {
         "Laat elke slag even hoog terugkomen.",
       ],
       musicParts: [
-        { title: "Nootlengtes ritme-oefening", embedUrl: "" },
-        { title: "We Will Rock You ritmepartij", embedUrl: "" },
+        {
+          title: "Video: verschillende nootlengtes spelen",
+          embedUrl: "https://www.youtube.com/embed/FsWcMAj4Fls",
+          description: "Voordoen oefening van het spelen van verschillende nootlengtes.",
+        },
+      ],
+      extraMusicPartsTitle: "Extra videos: oefeningen uit het boek",
+      extraMusicParts: [
+        {
+          title: "Video: voorspelen van oefening 1",
+          embedUrl: "https://www.youtube.com/embed/7cN2fPL6jUw",
+          description: "Voorspelen van oefening 1.",
+        },
+        {
+          title: "Video: voorspelen van oefening 2",
+          embedUrl: "https://www.youtube.com/embed/P3T9Yo9Uczw",
+          description: "Voorspelen van oefening 2.",
+        },
+      ],
+      finalMusicPartsTitle: "Extra video: We Will Rock You",
+      finalMusicParts: [
+        {
+          title: "Video: We Will Rock You",
+          embedUrl: "https://www.youtube.com/embed/7lyfvNgFMhI",
+          description: "Voorspelen van We will Rock you!",
+        },
       ],
       practiceParagraph: "Klap eerst je ritme, speel daarna op de trommel. Zo voel je sneller of je maat klopt.",
       practiceBullets: [
@@ -690,8 +726,16 @@ const HANDBOOK_CONTENT = {
         "Kijk op bij het instapmoment.",
       ],
       musicParts: [
-        { title: "Rusten en inzetten", embedUrl: "" },
-        { title: "I Feel Good ritmedeel", embedUrl: "" },
+        {
+          title: "Video: I Got You tot en met maat 30",
+          embedUrl: "https://www.youtube.com/embed/vpNQuDk5EGE",
+          description: "In deze video wordt I got you voorgespeeld tot maat 30.",
+        },
+        {
+          title: "Video: meespelen met de leerlingenpartij",
+          embedUrl: "https://www.youtube.com/embed/wMOa1lKpFNQ",
+          description: "Dit is de muziek waarbij meegespeeld kan worden met de partij van de leerlingen.",
+        },
       ],
       practiceParagraph: "Oefen je ritme met rusten op een vaste tel. Stop niet als je een fout maakt, maar pak de volgende tel.",
       practiceBullets: [
@@ -721,8 +765,24 @@ const HANDBOOK_CONTENT = {
         "Blijf op de tel terwijl je harder speelt.",
       ],
       musicParts: [
-        { title: "Tempo-training 3 niveaus", embedUrl: "" },
-        { title: "Dynamiek op ritmepatroon", embedUrl: "" },
+        {
+          title: "Video: oefening 1 van les 2 in verschillende tempi",
+          embedUrl: "https://www.youtube.com/embed/8kBytBY0tXQ",
+          description: "Hierin wordt voorgespeeld hoe je oefening 1 van les 2 in verschillende tempi kunt spelen.",
+        },
+      ],
+      extraMusicPartsTitle: "Extra videos: I got you",
+      extraMusicParts: [
+        {
+          title: "Video: I got you vanaf maat 43",
+          embedUrl: "https://www.youtube.com/embed/1C82QUBdCaI",
+          description: "Hierin spelen we I got you vanaf maat 43 voor.",
+        },
+        {
+          title: "Video: meespelen met I got you (leerlingenpartij)",
+          embedUrl: "https://www.youtube.com/embed/wMOa1lKpFNQ",
+          description: "Dit is de video voor de leerlingen om I got you mee te kunnen spelen.",
+        },
       ],
       practiceParagraph: "Speel hetzelfde ritme in 3 tempo's en daarna zacht en hard. Zo train je controle.",
       practiceBullets: [
@@ -750,10 +810,7 @@ const HANDBOOK_CONTENT = {
         "Kijk naar je docent bij elke start.",
         "Blijf in je ritme als iets misgaat.",
       ],
-      musicParts: [
-        { title: "Repetitie: hoofdritme", embedUrl: "" },
-        { title: "Generale: volledige doorloop", embedUrl: "" },
-      ],
+      musicParts: [],
       practiceParagraph: "Doe thuis een mini-repetitie: speel twee stukken achter elkaar met korte wissel.",
       practiceBullets: [
         "Tel altijd eerst 4 tellen in.",
@@ -943,6 +1000,10 @@ export default function LessonPage({
   const resolvedHighlights = handbookLesson?.highlights || highlights || [];
   const resolvedTips = handbookLesson?.tips || tips || [];
   const resolvedMusicPartVideos = handbookLesson?.musicParts || musicPartVideos || [];
+  const resolvedExtraMusicPartVideos = handbookLesson?.extraMusicParts || [];
+  const resolvedExtraMusicPartsTitle = handbookLesson?.extraMusicPartsTitle || "Extra videos voor deze les";
+  const resolvedFinalMusicPartVideos = handbookLesson?.finalMusicParts || [];
+  const resolvedFinalMusicPartsTitle = handbookLesson?.finalMusicPartsTitle || "Nog een extra video";
 
   const instrumentHref = `/${instrumentName.toLowerCase()}`;
 
@@ -996,10 +1057,15 @@ export default function LessonPage({
 
           <div className="grid gap-6 md:grid-cols-2">
             {resolvedMusicPartVideos.map((part, index) => (
-              <article key={`${instrumentName}-${lessonNumber}-part-video-${index}`}>
-                <h3 className="font-bold mb-2">{part.title}</h3>
+              <article
+                key={`${instrumentName}-${lessonNumber}-part-video-${index}`}
+                className="rounded-2xl border p-4 h-full flex flex-col"
+                style={{ borderColor: "var(--border)", background: "#fff" }}
+              >
+                <h3 className="font-bold mb-2 min-h-[3rem]">{part.title}</h3>
+                <p className="subtitle mb-3 min-h-[3.25rem]">{part.description || " "}</p>
                 {part.embedUrl ? (
-                  <div className="aspect-video rounded-3xl overflow-hidden shadow-lg">
+                  <div className="aspect-video rounded-2xl overflow-hidden shadow-lg mt-auto">
                     <iframe
                       width="100%"
                       height="100%"
@@ -1009,7 +1075,7 @@ export default function LessonPage({
                     ></iframe>
                   </div>
                 ) : (
-                  <div className="aspect-video rounded-3xl border-2 border-dashed flex items-center justify-center text-center p-4" style={{ borderColor: "var(--border)", background: "#fff" }}>
+                  <div className="aspect-video rounded-2xl border-2 border-dashed flex items-center justify-center text-center p-4 mt-auto" style={{ borderColor: "var(--border)", background: "#fff" }}>
                     <p className="subtitle">Hier komt straks de video voor: {part.title}. Kijk in je lesboek welk deel je nu oefent.</p>
                   </div>
                 )}
@@ -1116,6 +1182,92 @@ export default function LessonPage({
           ))}
         </ul>
       </section>
+
+      {resolvedExtraMusicPartVideos.length > 0 && (
+        <section className="card mb-8">
+          <h2
+            className="text-2xl font-bold mb-4"
+            style={{ color: "var(--pink)" }}
+          >
+            {resolvedExtraMusicPartsTitle}
+          </h2>
+
+          <p className="subtitle mb-6">
+            Hieronder staan aanvullende videos die dieper ingaan op de techniek van deze les.
+          </p>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            {resolvedExtraMusicPartVideos.map((part, index) => (
+              <article
+                key={`${instrumentName}-${lessonNumber}-extra-part-video-${index}`}
+                className="rounded-2xl border p-4 h-full flex flex-col"
+                style={{ borderColor: "var(--border)", background: "#fff" }}
+              >
+                <h3 className="font-bold mb-2 min-h-[3rem]">{part.title}</h3>
+                <p className="subtitle mb-3 min-h-[3.25rem]">{part.description || " "}</p>
+                {part.embedUrl ? (
+                  <div className="aspect-video rounded-2xl overflow-hidden shadow-lg mt-auto">
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src={part.embedUrl}
+                      title={`${instrumentName} les ${lessonNumber} ${part.title}`}
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                ) : (
+                  <div className="aspect-video rounded-2xl border-2 border-dashed flex items-center justify-center text-center p-4 mt-auto" style={{ borderColor: "var(--border)", background: "#fff" }}>
+                    <p className="subtitle">Hier komt straks de video voor: {part.title}. Kijk in je lesboek welk deel je nu oefent.</p>
+                  </div>
+                )}
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {resolvedFinalMusicPartVideos.length > 0 && (
+        <section className="card mb-8">
+          <h2
+            className="text-2xl font-bold mb-4"
+            style={{ color: "var(--pink)" }}
+          >
+            {resolvedFinalMusicPartsTitle}
+          </h2>
+
+          <p className="subtitle mb-6">
+            Hieronder staat nog een aanvullend videoblok voor deze les.
+          </p>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            {resolvedFinalMusicPartVideos.map((part, index) => (
+              <article
+                key={`${instrumentName}-${lessonNumber}-final-part-video-${index}`}
+                className="rounded-2xl border p-4 h-full flex flex-col"
+                style={{ borderColor: "var(--border)", background: "#fff" }}
+              >
+                <h3 className="font-bold mb-2 min-h-[3rem]">{part.title}</h3>
+                <p className="subtitle mb-3 min-h-[3.25rem]">{part.description || " "}</p>
+                {part.embedUrl ? (
+                  <div className="aspect-video rounded-2xl overflow-hidden shadow-lg mt-auto">
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src={part.embedUrl}
+                      title={`${instrumentName} les ${lessonNumber} ${part.title}`}
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                ) : (
+                  <div className="aspect-video rounded-2xl border-2 border-dashed flex items-center justify-center text-center p-4 mt-auto" style={{ borderColor: "var(--border)", background: "#fff" }}>
+                    <p className="subtitle">Hier komt straks de video voor: {part.title}. Kijk in je lesboek welk deel je nu oefent.</p>
+                  </div>
+                )}
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="card text-center">
         <h2
