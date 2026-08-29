@@ -1,20 +1,20 @@
 :root {
-  /* 🌈 BRAND COLORS */
+  /* BRAND COLORS */
   --primary: #0693e3;
   --primary-light: #8ed1fc;
   --primary-dark: #005a87;
   --ink: #24324a;
   --white: #ffffff;
 
-  /* 🎨 BACKGROUND SYSTEM */
+  /* BACKGROUND SYSTEM */
   --bg: #f7f7fb;
   --bg-soft: linear-gradient(180deg, #f7f7fb, #ffffff, #fdf2f8);
 
-  /* 🧸 SURFACES */
+  /* SURFACES */
   --card: #ffffff;
   --border: #e6e6ef;
 
-  /* ❤️ ACCENTS */
+  /* ACCENTS */
   --danger: #cf2e2e;
   --pink: #f78da7;
   --yellow: #ffd166;
@@ -23,7 +23,7 @@
 }
 
 /* =========================
-   🌍 GLOBAL STYLES
+  GLOBAL STYLES
 ========================= */
 
 body {
@@ -65,7 +65,7 @@ main {
 }
 
 /* =========================
-   🧩 CARDS (LESPANELEN)
+  CARDS (LESPANELEN)
 ========================= */
 
 .card {
@@ -90,7 +90,7 @@ main {
 }
 
 /* =========================
-   🎯 BUTTONS
+  BUTTONS
 ========================= */
 
 .btn {
@@ -125,7 +125,7 @@ main {
 }
 
 /* =========================
-   🧠 TITLES
+  TITLES
 ========================= */
 
 .title {
@@ -164,7 +164,7 @@ main {
 }
 
 /* =========================
-   🎮 INTERACTIVE STATES
+  INTERACTIVE STATES
 ========================= */
 
 .clickable {
@@ -176,7 +176,7 @@ main {
 }
 
 /* =========================
-   🧸 FUN ELEMENTS
+  FUN ELEMENTS
 ========================= */
 
 .badge {

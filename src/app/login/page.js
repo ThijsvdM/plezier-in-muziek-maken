@@ -70,10 +70,10 @@ export default function LoginPage() {
       return;
     }
 
-    // ✅ login opslaan
+    // Login opslaan
     localStorage.setItem("music_user", foundUser.username);
 
-    // ➜ redirect
+    // Redirect
     router.push("/");
   };
 
@@ -106,7 +106,7 @@ export default function LoginPage() {
         }}
       >
 
-        {/* 🎨 DECORATION */}
+        {/* Decoration */}
         <div
           style={{
             position: "absolute",
@@ -120,7 +120,7 @@ export default function LoginPage() {
           }}
         />
 
-        {/* 🎵 ICON */}
+        {/* Icon */}
         <div
           className="mb-4"
           style={{
@@ -130,7 +130,7 @@ export default function LoginPage() {
           🎵
         </div>
 
-        {/* 🧠 TITLE */}
+        {/* Title */}
         <h1 className="title mb-2">
           Inloggen
         </h1>
@@ -139,7 +139,7 @@ export default function LoginPage() {
           Log in en speel verder 🎶
         </p>
 
-        {/* 👤 USERNAME */}
+        {/* Username */}
         <input
           type="text"
           placeholder="Gebruikersnaam"
@@ -148,7 +148,7 @@ export default function LoginPage() {
           className="input mb-4"
         />
 
-        {/* 🔒 PASSWORD */}
+        {/* Password */}
         <input
           type="password"
           placeholder="Wachtwoord"
@@ -157,14 +157,14 @@ export default function LoginPage() {
           className="input mb-4"
         />
 
-        {/* ❌ ERROR */}
+        {/* Error */}
         {error && (
           <div className="error-box mb-5">
             {error}
           </div>
         )}
 
-        {/* 🚀 LOGIN BUTTON */}
+        {/* Login button */}
         <button
           type="submit"
           className="btn w-full clickable"
@@ -176,7 +176,7 @@ export default function LoginPage() {
           🚀 Start avontuur
         </button>
 
-        {/* 🎨 EXTRA INFO */}
+        {/* Extra info */}
         <div
           className="mt-6"
           style={{

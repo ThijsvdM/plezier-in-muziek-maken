@@ -48,7 +48,7 @@ export default function Home() {
       {/* GRID */}
       <div className="relative grid grid-cols-1 gap-6 max-w-5xl mx-auto md:grid-cols-3 md:gap-8">
 
-        {/* 🎵 Klokkenspel */}
+        {/* Klokkenspel */}
         <Link href="/klokkenspel" className="clickable">
           <div className="card text-center h-full">
             <div className="text-6xl mb-3">🎵</div>
@@ -65,7 +65,7 @@ export default function Home() {
           </div>
         </Link>
 
-        {/* 🥁 Trommel */}
+        {/* Trommel */}
         <Link href="/trommel" className="clickable">
           <div className="card text-center h-full">
             <div className="text-6xl mb-3">🥁</div>
@@ -82,7 +82,7 @@ export default function Home() {
           </div>
         </Link>
 
-        {/* 🎷 Pbuzz */}
+        {/* Pbuzz */}
         <Link href="/pbuzz" className="clickable">
           <div className="card text-center h-full">
             <div className="text-6xl mb-3">🎺</div>
