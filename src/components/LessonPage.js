@@ -327,7 +327,9 @@ const HANDBOOK_CONTENT = {
           description: "Kijk hoe de tonen stap voor stap omhoog en omlaag gaan. Speel daarna rustig mee en let op een mooie, stabiele klank.",
         },
       ],
+      musicPartsIntro: "Bekijk eerst hoe de toonladder klinkt op pBuzz. Let op rustige adem en speel daarna stap voor stap mee.",
       extraMusicPartsTitle: "Extra videos voor les 1",
+      extraMusicPartsIntro: "In dit blok hoor je oefening 1 en daarna Eye of the Tiger. Luister eerst, tel mee en speel vervolgens mee in je eigen tempo.",
       extraMusicParts: [
         {
           title: "Video: oefening 1 voorspelen",
@@ -373,7 +375,9 @@ const HANDBOOK_CONTENT = {
           description: "Je ziet hoe korte en lange noten klinken in de oefening. Tel hardop mee en probeer de nootlengtes precies na te spelen.",
         },
       ],
+      musicPartsIntro: "Dit eerste videoblok helpt je met nootlengtes. Let op het verschil tussen korte en lange noten en tel steeds hardop mee.",
       extraMusicPartsTitle: "Extra videos: oefeningen uit het boek",
+      extraMusicPartsIntro: "Hier worden oefening 1 en 2 voorgespeeld. Gebruik dit blok om je boekoefeningen maat voor maat mee te oefenen.",
       extraMusicParts: [
         {
           title: "Video: voorspelen oefening 1",
@@ -387,6 +391,7 @@ const HANDBOOK_CONTENT = {
         },
       ],
       finalMusicPartsTitle: "Extra video: We will rock you",
+      finalMusicPartsIntro: "In dit laatste blok hoor je We Will Rock You. Probeer stevig mee te spelen met een vaste, duidelijke puls.",
       finalMusicParts: [
         {
           title: "Video: voorspelen We will rock you",
@@ -432,6 +437,7 @@ const HANDBOOK_CONTENT = {
           description: "Gebruik deze meespeeltrack om je partij te oefenen met begeleiding. Probeer strak in de maat te blijven tot het einde.",
         },
       ],
+      musicPartsIntro: "In dit blok hoor je eerst het voordoen en daarna de meespeeltrack van I got you. Oefen vooral je instap en het strak blijven in de maat.",
       practiceParagraph: "Speel eerst kleuren op rij, daarna 1 stukje met rusten. Oefen vooral het moment van inzetten.",
       practiceBullets: [
         "Speel 2 keer alle kleuren op volgorde.",
@@ -466,7 +472,9 @@ const HANDBOOK_CONTENT = {
           description: "Je ziet dezelfde oefening in verschillende tempi. Begin langzaam en controleer of je toon en ritme netjes blijven.",
         },
       ],
+      musicPartsIntro: "Bekijk hier hoe dezelfde oefening in verschillende tempi wordt gespeeld. Begin zelf rustig en verhoog daarna pas je tempo.",
       extraMusicPartsTitle: "Extra videos: I got you",
+      extraMusicPartsIntro: "In dit blok werk je verder aan I got you vanaf maat 43 en oefen je daarna met de meespeeltrack.",
       extraMusicParts: [
         {
           title: "Video: I got you vanaf maat 43",
@@ -691,6 +699,9 @@ const HANDBOOK_CONTENT = {
           description: "Je ziet stap voor stap hoe je de stokken goed vasthoudt. Let op ontspannen handen, zodat je controle houdt tijdens het spelen.",
         },
       ],
+      musicPartsIntro: "In dit eerste blok leer je de juiste stokhouding. Kijk goed naar handpositie en probeer dat meteen rustig na te doen.",
+      extraMusicPartsTitle: "Extra videos voor les 1",
+      extraMusicPartsIntro: "Hier zie je het eerste gezamenlijke stuk en daarna Eye of the Tiger. Speel mee met duidelijke rechts-links slagen.",
       extraMusicParts: [
         {
           title: "Video: extra uitleg over stokhouding (les 1)",
@@ -736,7 +747,9 @@ const HANDBOOK_CONTENT = {
           description: "Deze video laat zien hoe je verschillende nootlengtes op de trommel speelt. Tel mee en houd je slagen gelijk.",
         },
       ],
+      musicPartsIntro: "In dit blok zie je hoe je nootlengtes speelt op trommel. Let op gelijkmatige slagen en een vaste tel.",
       extraMusicPartsTitle: "Extra videos: oefeningen uit het boek",
+      extraMusicPartsIntro: "Hier worden oefening 1 en oefening 2 uit het boek voorgespeeld. Speel eerst rustig mee en bouw daarna tempo op.",
       extraMusicParts: [
         {
           title: "Video: voorspelen van oefening 1",
@@ -750,6 +763,7 @@ const HANDBOOK_CONTENT = {
         },
       ],
       finalMusicPartsTitle: "Extra video: We Will Rock You",
+      finalMusicPartsIntro: "Dit blok is voor We Will Rock You. Speel krachtig, maar blijf strak in de maat.",
       finalMusicParts: [
         {
           title: "Video: We Will Rock You",
@@ -795,6 +809,7 @@ const HANDBOOK_CONTENT = {
           description: "Dit is de meespeelversie voor de leerlingenpartij. Oefen met de track en probeer het hele stuk in tempo vol te houden.",
         },
       ],
+      musicPartsIntro: "In dit blok hoor je I got you tot maat 30 en daarna de meespeelversie. Let op rusten, instappen en een stabiele tel.",
       practiceParagraph: "Oefen je ritme met rusten op een vaste tel. Stop niet als je een fout maakt, maar pak de volgende tel.",
       practiceBullets: [
         "Klap 5 rustmaten en stap daarna in.",
@@ -829,7 +844,9 @@ const HANDBOOK_CONTENT = {
           description: "Deze video laat zien hoe je oefening 1 van les 2 in verschillende tempi speelt. Start rustig en maak het tempo stap voor stap sneller.",
         },
       ],
+      musicPartsIntro: "Dit eerste blok laat zien hoe je oefening 1 in meerdere tempi speelt. Oefen van langzaam naar sneller, zonder je controle te verliezen.",
       extraMusicPartsTitle: "Extra videos: I got you",
+      extraMusicPartsIntro: "Hier ga je verder met I got you vanaf maat 43 en oefen je daarna met de meespeeltrack voor de leerlingenpartij.",
       extraMusicParts: [
         {
           title: "Video: I got you vanaf maat 43",
@@ -1059,9 +1076,12 @@ export default function LessonPage({
   const resolvedTips = handbookLesson?.tips || tips || [];
   const resolvedMusicPartVideos = handbookLesson?.musicParts || musicPartVideos || [];
   const resolvedExtraMusicPartVideos = handbookLesson?.extraMusicParts || [];
-  const resolvedExtraMusicPartsTitle = handbookLesson?.extraMusicPartsTitle || "Extra videos voor deze les";
+  const resolvedExtraMusicPartsTitle = handbookLesson?.extraMusicPartsTitle || "Meer om mee te spelen";
   const resolvedFinalMusicPartVideos = handbookLesson?.finalMusicParts || [];
-  const resolvedFinalMusicPartsTitle = handbookLesson?.finalMusicPartsTitle || "Nog een extra video";
+  const resolvedFinalMusicPartsTitle = handbookLesson?.finalMusicPartsTitle || "Nog een video om te oefenen";
+  const resolvedMainVideoBlockDescription = handbookLesson?.musicPartsIntro || "Bekijk deze video's voor de basis van deze les. Luister eerst goed en speel daarna stap voor stap mee.";
+  const resolvedExtraVideoBlockDescription = handbookLesson?.extraMusicPartsIntro || "In dit blok staan extra voorbeelden en oefeningen die je helpen om de les nog beter te spelen.";
+  const resolvedFinalVideoBlockDescription = handbookLesson?.finalMusicPartsIntro || "Dit blok helpt je met het complete stuk of de meespeelversie. Probeer in tempo en met vaste tel mee te spelen.";
   const twoLineClampStyle = {
     display: "-webkit-box",
     WebkitLineClamp: 2,
@@ -1112,11 +1132,11 @@ export default function LessonPage({
             className="text-2xl font-bold mb-4"
             style={{ color: "var(--pink)" }}
           >
-            Extra video per muziekdeel
+            Kijk en speel mee
           </h2>
 
           <p className="subtitle mb-6">
-            Werk per onderdeel uit je lesboek. Bij elk muziekdeel staat hieronder een plek voor een eigen instructievideo.
+            {resolvedMainVideoBlockDescription}
           </p>
 
           <div className={`grid gap-6 ${resolvedMusicPartVideos.length > 1 ? "md:grid-cols-2" : "max-w-3xl"}`}>
@@ -1126,10 +1146,7 @@ export default function LessonPage({
                 className="rounded-2xl border p-4 h-full flex flex-col"
                 style={{ borderColor: "var(--border)", background: "#fff" }}
               >
-                <div className="mb-3">
-                  <h3 className="font-bold leading-snug min-h-[2.8rem]" style={twoLineClampStyle}>{part.title}</h3>
-                  <p className="subtitle text-sm leading-snug min-h-[2.9rem] mt-2" style={twoLineClampStyle}>{part.description || ""}</p>
-                </div>
+                <h3 className="font-black text-base md:text-lg leading-snug min-h-[2.8rem] mb-3" style={twoLineClampStyle}>{part.title}</h3>
                 {part.embedUrl ? (
                   <div className="aspect-video rounded-2xl overflow-hidden shadow-lg mt-auto">
                     <iframe
@@ -1276,7 +1293,7 @@ export default function LessonPage({
           </h2>
 
           <p className="subtitle mb-6">
-            Hieronder staan aanvullende videos die dieper ingaan op de techniek van deze les.
+            {resolvedExtraVideoBlockDescription}
           </p>
 
           <div className={`grid gap-6 ${resolvedExtraMusicPartVideos.length > 1 ? "md:grid-cols-2" : "max-w-3xl"}`}>
@@ -1286,10 +1303,7 @@ export default function LessonPage({
                 className="rounded-2xl border p-4 h-full flex flex-col"
                 style={{ borderColor: "var(--border)", background: "#fff" }}
               >
-                <div className="mb-3">
-                  <h3 className="font-bold leading-snug min-h-[2.8rem]" style={twoLineClampStyle}>{part.title}</h3>
-                  <p className="subtitle text-sm leading-snug min-h-[2.9rem] mt-2" style={twoLineClampStyle}>{part.description || ""}</p>
-                </div>
+                <h3 className="font-black text-base md:text-lg leading-snug min-h-[2.8rem] mb-3" style={twoLineClampStyle}>{part.title}</h3>
                 {part.embedUrl ? (
                   <div className="aspect-video rounded-2xl overflow-hidden shadow-lg mt-auto">
                     <iframe
@@ -1321,7 +1335,7 @@ export default function LessonPage({
           </h2>
 
           <p className="subtitle mb-6">
-            Hieronder staat nog een aanvullend videoblok voor deze les.
+            {resolvedFinalVideoBlockDescription}
           </p>
 
           <div className={`grid gap-6 ${resolvedFinalMusicPartVideos.length > 1 ? "md:grid-cols-2" : "max-w-3xl"}`}>
@@ -1331,10 +1345,7 @@ export default function LessonPage({
                 className="rounded-2xl border p-4 h-full flex flex-col"
                 style={{ borderColor: "var(--border)", background: "#fff" }}
               >
-                <div className="mb-3">
-                  <h3 className="font-bold leading-snug min-h-[2.8rem]" style={twoLineClampStyle}>{part.title}</h3>
-                  <p className="subtitle text-sm leading-snug min-h-[2.9rem] mt-2" style={twoLineClampStyle}>{part.description || ""}</p>
-                </div>
+                <h3 className="font-black text-base md:text-lg leading-snug min-h-[2.8rem] mb-3" style={twoLineClampStyle}>{part.title}</h3>
                 {part.embedUrl ? (
                   <div className="aspect-video rounded-2xl overflow-hidden shadow-lg mt-auto">
                     <iframe

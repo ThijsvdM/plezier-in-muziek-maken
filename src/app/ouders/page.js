@@ -26,7 +26,7 @@ export default function OudersPage() {
           </h1>
 
           <p className="subtitle mx-auto mt-3 max-w-2xl">
-            Alles wat u nodig heeft om uw kind thuis op een speelse, rustige manier te begeleiden.
+            Als muziekvereniging nemen we u graag mee in dit project, zodat uw kind met plezier kan blijven groeien in muziek.
           </p>
         </div>
 
@@ -38,13 +38,13 @@ export default function OudersPage() {
             <div>
               <div className="badge mb-4">Speels leren, zonder prestatiedruk</div>
               <h2 className="text-3xl font-black mb-4" style={{ color: "var(--primary-dark)" }}>
-                Muziek maken helpt kinderen groeien
+                Samen bouwen we aan muzikale groei
               </h2>
               <p className="subtitle mb-4">
-                Muziek maken is veel meer dan alleen een leuke activiteit. Het helpt kinderen in hun ontwikkeling op meerdere gebieden tegelijk.
+                Vanuit Ons Genoegen Renswoude zien we elke week wat muziek met kinderen doet: ze leren luisteren, doorzetten en stap voor stap vertrouwen opbouwen.
               </p>
               <p className="subtitle">
-                Ons Genoegen Renswoude wil kinderen op een speelse manier laten ervaren hoe leuk muziek maken is, zonder prestatiedruk.
+                Daarom nodigen we ouders uit om actief mee te doen. Juist door thuis positief te blijven stimuleren, blijft muziek maken een gewoonte waar kinderen hun hele leven profijt van hebben.
               </p>
             </div>
 
@@ -64,11 +64,11 @@ export default function OudersPage() {
 
         <section className="card mb-8 md:mb-10">
           <h2 className="text-2xl font-black mb-4" style={{ color: "var(--purple)" }}>
-            🎼 De instrumenten en hoe ze gebruikt worden
+            🎼 Wat uw kind leert per instrument
           </h2>
 
           <p className="subtitle mb-5">
-            We hebben de inhoud aangevuld met instrumentkennis uit muziekonderwijs en basisinformatie over speeltechniek. Zo krijgt u beter zicht op wat uw kind precies oefent.
+            In dit project maken kinderen kennis met klank, ritme en samenspel. Hieronder ziet u hoe elk instrument daaraan bijdraagt en hoe u thuis kunt helpen.
           </p>
 
           <div className="grid gap-4 md:grid-cols-3">
@@ -78,10 +78,10 @@ export default function OudersPage() {
                 Klokkenspel
               </h3>
               <p className="subtitle text-sm mb-3">
-                Een klokkenspel heeft metalen staven (geen houten, zoals bij een xylofoon) en klinkt helder en hoog. Het instrument helpt bij toonhoogteherkenning.
+                Een klokkenspel heeft metalen staven en een heldere klank. Kinderen trainen hiermee hun gehoor voor toonhoogte en leren melodieën herkennen.
               </p>
               <p className="subtitle text-sm">
-                Gebruik: laat uw kind met rustige, korte tikken spelen en de stokken losjes vasthouden. Eerst langzaam van laag naar hoog, daarna pas melodietjes.
+                Thuis-tip: oefen met rustige, korte tikken en een losse stokgreep. Eerst langzaam van laag naar hoog, daarna pas kleine melodieën.
               </p>
             </article>
 
@@ -91,10 +91,10 @@ export default function OudersPage() {
                 Trommel
               </h3>
               <p className="subtitle text-sm mb-3">
-                Bij trommel draait het om ritme, timing en controle. Eenvoudige slagen en herhaling bouwen een stabiel maatgevoel op.
+                Op trommel ontwikkelen kinderen ritmegevoel, timing en controle. Met herhaling groeit hun gevoel voor maat en samenspel.
               </p>
               <p className="subtitle text-sm">
-                Gebruik: oefen met ontspannen polsen, afwisselend rechts-links en zachte rebound. Kwaliteit is belangrijker dan hard of snel spelen.
+                Thuis-tip: oefen met ontspannen polsen, afwisselend rechts-links en zachte rebound. Zuiver en stabiel is belangrijker dan hard of snel.
               </p>
             </article>
 
@@ -104,10 +104,10 @@ export default function OudersPage() {
                 pBuzz
               </h3>
               <p className="subtitle text-sm mb-3">
-                De pBuzz is een kunststof instrument met een uitschuifbare buis. Daardoor lijkt het qua speelidee op een trombone.
+                De pBuzz is een kunststof instrument met uitschuifbare buis, vergelijkbaar met een trombone. Kinderen oefenen ademsteun, embouchure en toonvorming.
               </p>
               <p className="subtitle text-sm">
-                Gebruik: begin met een rechte houding, rustige ademhaling en korte speelmomenten. Focus eerst op een stabiele toon, daarna op toonwisselingen.
+                Thuis-tip: begin met rechte houding, rustige ademhaling en korte speelmomenten. Werk eerst aan een stabiele toon en daarna aan toonwisselingen.
               </p>
             </article>
           </div>
@@ -119,22 +119,22 @@ export default function OudersPage() {
               💻 Dit online portaal
             </h2>
             <p className="subtitle mb-4">
-              Dit portaal ondersteunt het lesboek dat kinderen thuis hebben gekregen. Beide onderdelen horen bij elkaar en versterken het leerproces.
+              Dit portaal ondersteunt het lesboek dat kinderen hebben meegekregen. Samen vormen ze een doorgaande leerlijn van les naar thuis.
             </p>
             <p className="subtitle mb-4">
-              In het boek staan opdrachten en oefeningen, terwijl het online portaal helpt met uitleg, beelden en interactieve lessen.
+              In het boek staan opdrachten, in het portaal vinden kinderen voorbeelden, uitleg en speelse herhaling. Zo wordt oefenen overzichtelijk en haalbaar.
             </p>
             <p className="subtitle">
-              Video’s laten horen en zien hoe muziek bedoeld is om te klinken. Dat helpt kinderen om beter te begrijpen wat ze moeten spelen.
+              Videos laten horen en zien hoe muziek bedoeld is om te klinken. Dat helpt kinderen om met meer zekerheid en plezier te oefenen.
             </p>
           </section>
 
           <section className="card">
             <h2 className="text-2xl font-black mb-4" style={{ color: "var(--primary-dark)" }}>
-              🤝 Hoe kunt u uw kind helpen?
+              🤝 Uw rol als ouder maakt het verschil
             </h2>
             <p className="subtitle mb-4">
-              Uw rol als ouder is vooral het bieden van rust, ruimte en positieve aanmoediging.
+              Kinderen blijven vaker muziek maken wanneer ouders betrokken zijn. U hoeft geen muzikant te zijn, uw aandacht en aanmoediging zijn al enorm waardevol.
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="badge text-center py-3">Oefen kort en regelmatig</div>
@@ -143,10 +143,22 @@ export default function OudersPage() {
               <div className="badge text-center py-3">Neem pauze als het niet lukt</div>
             </div>
             <p className="subtitle mt-4">
-              Frustratie hoort bij leren. Vaak helpt het om later opnieuw te proberen.
+              Juist op momenten dat iets nog niet lukt, leren kinderen doorzetten. Met kleine stappen en positieve feedback groeit zowel muzikaliteit als zelfvertrouwen.
             </p>
           </section>
         </div>
+
+        <section className="card mb-8 md:mb-10">
+          <h2 className="text-2xl font-black mb-4" style={{ color: "var(--primary)" }}>
+            🌟 Waarom blijven doorgaan zo belangrijk is
+          </h2>
+          <p className="subtitle mb-4">
+            Muziek maken werkt het best op de lange termijn. Door te blijven oefenen, ook als het soms lastig is, merken kinderen dat inspanning echt resultaat geeft.
+          </p>
+          <p className="subtitle">
+            Die ervaring nemen ze mee naar school en andere activiteiten: volhouden, samenwerken en trots zijn op wat je hebt geleerd. Daarom moedigen we als vereniging aan om muziek vooral vol te houden.
+          </p>
+        </section>
 
         <section className="card relative overflow-hidden">
           <div className="absolute -right-4 -top-4 h-20 w-20 rounded-full opacity-20" style={{ background: "var(--green)" }}></div>
@@ -156,7 +168,7 @@ export default function OudersPage() {
                 📚 Meer informatie
               </h2>
               <p className="subtitle max-w-2xl">
-                Wilt u meer weten over de organisatie en muziekeducatie? Bekijk dan de website van Ons Genoegen.
+                Wilt u meer weten over onze vereniging en dit project? We vertellen u er graag meer over.
               </p>
             </div>
 
