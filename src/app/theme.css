@@ -81,11 +81,16 @@ main {
 
 @media (hover: hover) {
   .card:hover {
-    transform: translateY(-6px) rotate(-0.4deg);
     border-color: rgba(142, 209, 252, 0.95);
     box-shadow:
       0 22px 0 rgba(6, 147, 227, 0.1),
       0 22px 44px rgba(36, 50, 74, 0.16);
+  }
+
+  /* Interactive cards keep the subtle hover movement. */
+  .card.clickable:hover,
+  .clickable .card:hover {
+    transform: translateY(-6px) rotate(-0.4deg);
   }
 }
 
