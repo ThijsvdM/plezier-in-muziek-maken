@@ -326,25 +326,40 @@ export default function AgendaPage() {
             ) : (
               <div className="mt-8 grid gap-4">
                 {visibleEvents.map((eventItem) => (
-                  <div key={eventItem.id} className="card p-5 bg-[#fff9f3] border-yellow-200">
-                    <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                      <div>
-                        <h3 className="text-xl font-bold">{eventItem.title}</h3>
-                        {eventItem.note && <p className="subtitle mt-1">{eventItem.note}</p>}
+                  <div key={eventItem.id} className="card bg-[#fff9f3] border-yellow-200 p-4 md:p-4">
+                    <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                      <div className="min-w-0">
+                        <h3 className="text-lg font-bold leading-snug">{eventItem.title}</h3>
+                        {isOwner && (
+                          <p className="subtitle mt-1 text-sm">
+                            Ingepland voor: <strong>{eventItem.assignedTo}</strong>
+                          </p>
+                        )}
+                        {eventItem.note && <p className="subtitle mt-1 text-sm">{eventItem.note}</p>}
                       </div>
-                      <div className="flex flex-col gap-3 md:items-end">
-                        <div className="badge" style={{ background: "var(--yellow)", color: "#333" }}>
+                      <div className="flex flex-col gap-2 md:items-end md:text-right">
+                        <div className="badge px-3 py-2 text-xs md:text-sm" style={{ background: "var(--yellow)", color: "#333" }}>
                           {formatDateToDisplay(eventItem.date)} om {eventItem.time}
                         </div>
                         {isOwner && (
-                          <button
-                            type="button"
-                            className="btn clickable"
-                            style={{ background: "#f87171", boxShadow: "0 8px 20px rgba(248, 113, 113, 0.25)" }}
-                            onClick={() => handleDeleteEvent(eventItem.id)}
-                          >
-                            Verwijderen
-                          </button>
+                          <div className="flex flex-wrap gap-2 md:justify-end">
+                            <button
+                              type="button"
+                              className="btn clickable min-h-0 px-4 py-2 text-sm"
+                              style={{ background: "var(--primary-dark)", boxShadow: "0 6px 14px rgba(0, 90, 135, 0.18)" }}
+                              onClick={() => handleEditEvent(eventItem)}
+                            >
+                              Wijzigen
+                            </button>
+                            <button
+                              type="button"
+                              className="btn clickable min-h-0 px-4 py-2 text-sm"
+                              style={{ background: "#f87171", boxShadow: "0 6px 14px rgba(248, 113, 113, 0.22)" }}
+                              onClick={() => handleDeleteEvent(eventItem.id)}
+                            >
+                              Verwijderen
+                            </button>
+                          </div>
                         )}
                       </div>
                     </div>
