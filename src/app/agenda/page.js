@@ -34,10 +34,39 @@ const normalizeUser = (user) => ({
     : "",
 });
 
+const toIsoDateString = (value) => {
+  if (typeof value !== "string") return "";
+  const trimmed = value.trim();
+
+  // Already ISO-like from <input type="date">.
+  if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) {
+    return trimmed;
+  }
+
+  // Legacy or manually entered format: DD-MM-YYYY.
+  const legacyMatch = trimmed.match(/^(\d{2})-(\d{2})-(\d{4})$/);
+  if (legacyMatch) {
+    const [, day, month, year] = legacyMatch;
+    return `${year}-${month}-${day}`;
+  }
+
+  return "";
+};
+
+const formatDateToDisplay = (value) => {
+  const iso = toIsoDateString(value);
+  if (!iso) return value;
+
+  const [year, month, day] = iso.split("-");
+  return `${day}-${month}-${year}`;
+};
+
 const sortEventsByDateTime = (items) =>
   [...items].sort((a, b) => {
-    if (a.date === b.date) return a.time.localeCompare(b.time);
-    return a.date.localeCompare(b.date);
+    const aDate = toIsoDateString(a.date);
+    const bDate = toIsoDateString(b.date);
+    if (aDate === bDate) return a.time.localeCompare(b.time);
+    return aDate.localeCompare(bDate);
   });
 
 const getStoredUsers = () => {
@@ -73,7 +102,12 @@ const getStoredEvents = () => {
   try {
     const parsed = JSON.parse(storedEvents);
     if (!Array.isArray(parsed)) return defaultEvents;
-    return parsed.filter((event) => typeof event.assignedTo === "string");
+    return parsed
+      .filter((event) => typeof event.assignedTo === "string")
+      .map((event) => ({
+        ...event,
+        date: toIsoDateString(event.date) || event.date,
+      }));
   } catch (error) {
     console.warn("Ongeldige agenda-data in localStorage", error);
     return defaultEvents;
@@ -146,7 +180,7 @@ export default function AgendaPage() {
     const updatedEvent = {
       id: editingId || Date.now(),
       title,
-      date,
+      date: toIsoDateString(date) || date,
       time,
       note,
       assignedTo,
@@ -228,7 +262,7 @@ export default function AgendaPage() {
   const handleEditEvent = (eventItem) => {
     setEditingId(eventItem.id);
     setTitle(eventItem.title);
-    setDate(eventItem.date);
+    setDate(toIsoDateString(eventItem.date) || "");
     setTime(eventItem.time);
     setNote(eventItem.note || "");
     setAssignedTo(eventItem.assignedTo || "");
@@ -300,7 +334,7 @@ export default function AgendaPage() {
                       </div>
                       <div className="flex flex-col gap-3 md:items-end">
                         <div className="badge" style={{ background: "var(--yellow)", color: "#333" }}>
-                          {eventItem.date} om {eventItem.time}
+                          {formatDateToDisplay(eventItem.date)} om {eventItem.time}
                         </div>
                         {isOwner && (
                           <button
