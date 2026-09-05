@@ -63,13 +63,78 @@ export default function OudersPage() {
         </section>
 
         <section className="card mb-8 md:mb-10">
-          <h2 className="text-2xl font-black mb-4" style={{ color: "var(--purple)" }}>
-            🎼 Wat uw kind leert per instrument
-          </h2>
+          <div className="max-w-3xl">
+            <div className="badge mb-3">Stap voor stap</div>
+            <h2 className="text-2xl font-black mb-3" style={{ color: "var(--primary-dark)" }}>
+              Hoe werkt het?
+            </h2>
+            <p className="subtitle text-sm">
+              Van eerste les tot optreden: zo is het traject opgebouwd.
+            </p>
+          </div>
 
-          <p className="subtitle mb-5">
-            In dit project maken kinderen kennis met klank, ritme en samenspel. Hieronder ziet u hoe elk instrument daaraan bijdraagt en hoe u thuis kunt helpen.
-          </p>
+          <div className="mt-6 grid gap-3 md:grid-cols-2">
+            <article className="rounded-3xl border bg-white p-4" style={{ borderColor: "var(--border)" }}>
+              <div className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full text-sm font-black" style={{ background: "var(--yellow)", color: "#523800" }}>
+                1
+              </div>
+              <h3 className="text-lg font-black mb-2" style={{ color: "var(--primary-dark)" }}>
+                Boek en instrument mee naar huis
+              </h3>
+              <p className="subtitle text-sm">
+                Uw kind krijgt een boek en instrument mee, zodat thuis rustig verder geoefend kan worden.
+              </p>
+            </article>
+
+            <article className="rounded-3xl border bg-white p-4" style={{ borderColor: "var(--border)" }}>
+              <div className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full text-sm font-black" style={{ background: "var(--pink)", color: "#7a1630" }}>
+                2
+              </div>
+              <h3 className="text-lg font-black mb-2" style={{ color: "var(--primary-dark)" }}>
+                Meteen resultaat in de klas
+              </h3>
+              <p className="subtitle text-sm">
+                In de klas maken we direct samen muziek, zodat kinderen meteen resultaat horen en plezier ervaren.
+              </p>
+            </article>
+
+            <article className="rounded-3xl border bg-white p-4" style={{ borderColor: "var(--border)" }}>
+              <div className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full text-sm font-black" style={{ background: "var(--green)", color: "#064e3b" }}>
+                3
+              </div>
+              <h3 className="text-lg font-black mb-2" style={{ color: "var(--primary-dark)" }}>
+                Thuis verder oefenen
+              </h3>
+              <p className="subtitle text-sm">
+                Met boek en website groeit de moeilijkheid stap voor stap, maar blijft het oefenen goed haalbaar.
+              </p>
+            </article>
+
+            <article className="rounded-3xl border bg-white p-4" style={{ borderColor: "var(--border)" }}>
+              <div className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full text-sm font-black" style={{ background: "var(--primary-light)", color: "var(--primary-dark)" }}>
+                4
+              </div>
+              <h3 className="text-lg font-black mb-2" style={{ color: "var(--primary-dark)" }}>
+                Optreden en vervolg
+              </h3>
+              <p className="subtitle text-sm">
+                Het traject eindigt met een optreden in het muziekgebouw, met daarna eventueel vervolglessen.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section className="card mb-8 md:mb-10">
+          <div className="max-w-4xl mb-6">
+            <div className="badge mb-4">Per instrument</div>
+            <h2 className="text-2xl font-black mb-4" style={{ color: "var(--purple)" }}>
+              Wat uw kind leert per instrument
+            </h2>
+
+            <p className="subtitle">
+              In dit project gaat het niet alleen om een instrument leren kennen, maar vooral om met plezier groeien in ritme, luisteren, samenspelen en zelfvertrouwen. Hieronder ziet u hoe elk instrument daaraan bijdraagt en hoe u thuis kunt helpen.
+            </p>
+          </div>
 
           <div className="grid gap-4 md:grid-cols-3">
             <article className="card bg-white shadow-none">
@@ -78,10 +143,10 @@ export default function OudersPage() {
                 Klokkenspel
               </h3>
               <p className="subtitle text-sm mb-3">
-                Een klokkenspel heeft metalen staven en een heldere klank. Kinderen trainen hiermee hun gehoor voor toonhoogte en leren melodieën herkennen.
+                Een klokkenspel heeft metalen staven en een heldere klank. Kinderen trainen hiermee hun gehoor voor toonhoogte en leren melodieën herkennen en onthouden.
               </p>
               <p className="subtitle text-sm">
-                Thuis-tip: oefen met rustige, korte tikken en een losse stokgreep. Eerst langzaam van laag naar hoog, daarna pas kleine melodieën.
+                Thuis-tip: oefen met rustige, korte tikken en een losse stokgreep. Eerst langzaam van laag naar hoog, daarna pas kleine melodieën. Zo merkt uw kind snel dat oefenen echt resultaat oplevert.
               </p>
             </article>
 
@@ -91,10 +156,10 @@ export default function OudersPage() {
                 Trommel
               </h3>
               <p className="subtitle text-sm mb-3">
-                Op trommel ontwikkelen kinderen ritmegevoel, timing en controle. Met herhaling groeit hun gevoel voor maat en samenspel.
+                Op trommel ontwikkelen kinderen ritmegevoel, timing en controle. Met herhaling groeit hun gevoel voor maat, samenspel en doorzetten.
               </p>
               <p className="subtitle text-sm">
-                Thuis-tip: oefen met ontspannen polsen, afwisselend rechts-links en zachte rebound. Zuiver en stabiel is belangrijker dan hard of snel.
+                Thuis-tip: oefen met ontspannen polsen, afwisselend rechts-links en zachte rebound. Zuiver en stabiel is belangrijker dan hard of snel. Korte oefenmomenten geven hier vaak al veel succeservaring.
               </p>
             </article>
 
@@ -104,10 +169,10 @@ export default function OudersPage() {
                 pBuzz
               </h3>
               <p className="subtitle text-sm mb-3">
-                De pBuzz is een kunststof instrument met uitschuifbare buis, vergelijkbaar met een trombone. Kinderen oefenen ademsteun, embouchure en toonvorming.
+                De pBuzz is een kunststof instrument met uitschuifbare buis, vergelijkbaar met een trombone. Kinderen oefenen ademsteun, embouchure, toonvorming en leren goed luisteren naar verschil in toonhoogte.
               </p>
               <p className="subtitle text-sm">
-                Thuis-tip: begin met rechte houding, rustige ademhaling en korte speelmomenten. Werk eerst aan een stabiele toon en daarna aan toonwisselingen.
+                Thuis-tip: begin met rechte houding, rustige ademhaling en korte speelmomenten. Werk eerst aan een stabiele toon en daarna aan toonwisselingen. Ook hier helpt het als uw kind merkt dat kleine stappen al hoorbaar verschil maken.
               </p>
             </article>
           </div>
@@ -115,49 +180,54 @@ export default function OudersPage() {
 
         <div className="grid gap-8 lg:grid-cols-2 mb-8 md:mb-10">
           <section className="card">
+            <div className="badge mb-4">Thuis oefenen</div>
             <h2 className="text-2xl font-black mb-4" style={{ color: "var(--green)" }}>
-              💻 Dit online portaal
+              Dit online portaal
             </h2>
             <p className="subtitle mb-4">
               Dit portaal ondersteunt het lesboek dat kinderen hebben meegekregen. Samen vormen ze een doorgaande leerlijn van les naar thuis.
             </p>
             <p className="subtitle mb-4">
-              In het boek staan opdrachten, in het portaal vinden kinderen voorbeelden, uitleg en speelse herhaling. Zo wordt oefenen overzichtelijk en haalbaar.
+              In het boek staan opdrachten, in het portaal vinden kinderen voorbeelden, uitleg en speelse herhaling. Zo wordt oefenen overzichtelijk, haalbaar en motiverend.
             </p>
             <p className="subtitle">
-              Videos laten horen en zien hoe muziek bedoeld is om te klinken. Dat helpt kinderen om met meer zekerheid en plezier te oefenen.
+              Videos laten horen en zien hoe muziek bedoeld is om te klinken. Dat helpt kinderen om thuis met meer zekerheid te oefenen en sneller trots te zijn op wat al lukt.
             </p>
           </section>
 
           <section className="card">
+            <div className="badge mb-4">Ondersteunen thuis</div>
             <h2 className="text-2xl font-black mb-4" style={{ color: "var(--primary-dark)" }}>
-              🤝 Uw rol als ouder maakt het verschil
+              Uw rol als ouder maakt het verschil
             </h2>
             <p className="subtitle mb-4">
               Kinderen blijven vaker muziek maken wanneer ouders betrokken zijn. U hoeft geen muzikant te zijn, uw aandacht en aanmoediging zijn al enorm waardevol.
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
-              <div className="badge text-center py-3">Oefen kort en regelmatig</div>
+              <div className="badge text-center py-3">Kijk 5 minuten mee</div>
               <div className="badge text-center py-3">Geef complimenten op inzet</div>
-              <div className="badge text-center py-3">Laat uw kind zelf ontdekken</div>
+              <div className="badge text-center py-3">Laat 1 stukje voordoen</div>
               <div className="badge text-center py-3">Neem pauze als het niet lukt</div>
             </div>
             <p className="subtitle mt-4">
-              Juist op momenten dat iets nog niet lukt, leren kinderen doorzetten. Met kleine stappen en positieve feedback groeit zowel muzikaliteit als zelfvertrouwen.
+              Vaak helpt het al om even te luisteren, een vast oefenmoment te kiezen en uw kind iets korts te laten voordoen. Juist op momenten dat iets nog niet lukt, leren kinderen doorzetten. Met kleine stappen en positieve feedback groeit zowel muzikaliteit als zelfvertrouwen.
             </p>
           </section>
         </div>
 
         <section className="card mb-8 md:mb-10">
-          <h2 className="text-2xl font-black mb-4" style={{ color: "var(--primary)" }}>
-            🌟 Waarom blijven doorgaan zo belangrijk is
-          </h2>
-          <p className="subtitle mb-4">
-            Muziek maken werkt het best op de lange termijn. Door te blijven oefenen, ook als het soms lastig is, merken kinderen dat inspanning echt resultaat geeft.
-          </p>
-          <p className="subtitle">
-            Die ervaring nemen ze mee naar school en andere activiteiten: volhouden, samenwerken en trots zijn op wat je hebt geleerd. Daarom moedigen we als vereniging aan om muziek vooral vol te houden.
-          </p>
+          <div className="max-w-4xl">
+            <div className="badge mb-4">Waarom dit werkt</div>
+            <h2 className="text-2xl font-black mb-4" style={{ color: "var(--primary)" }}>
+              Waarom blijven doorgaan zo belangrijk is
+            </h2>
+            <p className="subtitle mb-4">
+              Muziek maken werkt het best op de lange termijn. Door te blijven oefenen, ook als het soms lastig is, merken kinderen dat inspanning echt resultaat geeft.
+            </p>
+            <p className="subtitle">
+              Die ervaring nemen ze mee naar school en andere activiteiten: volhouden, samenwerken en trots zijn op wat je hebt geleerd. Daarom moedigen we als vereniging aan om muziek vooral vol te houden en kinderen ook na dit programma te blijven stimuleren.
+            </p>
+          </div>
         </section>
 
         <section className="card relative overflow-hidden">
@@ -168,7 +238,7 @@ export default function OudersPage() {
                 📚 Meer informatie
               </h2>
               <p className="subtitle max-w-2xl">
-                Wilt u meer weten over onze vereniging en dit project? We vertellen u er graag meer over.
+                Wilt u meer weten over onze vereniging, dit project of de mogelijkheden om daarna door te gaan met muziekles? We vertellen u er graag meer over.
               </p>
             </div>
 
@@ -179,7 +249,7 @@ export default function OudersPage() {
                 rel="noreferrer"
                 className="btn"
               >
-                Meer over muziekeducatie 🎵
+                Meer over muziekeducatie
               </a>
 
               <Link href="/contact" className="btn">
