@@ -21,8 +21,8 @@ const HANDBOOK_CONTENT = {
         "Speel zacht door als je twijfelt, stop niet meteen.",
       ],
       musicParts: [
-        { title: "Kleurennoten C-D-E-F-G", embedUrl: "" },
-        { title: "Eerste samenspel: startstuk", embedUrl: "" },
+        { title: "Toonladder op het klokkenspel", embedUrl: "https://www.youtube.com/embed/sYKZQwzDk5U" },
+        { title: "Eye of the Tiger voorgespeeld", embedUrl: "https://www.youtube.com/embed/N162pdynHIA" },
       ],
       practiceParagraph: "Pak les 1 erbij en speel de noten op kleur. Herhaal dit rustig tot je zonder haast kunt doorspelen.",
       practiceBullets: [
@@ -51,8 +51,12 @@ const HANDBOOK_CONTENT = {
         "Kijk naar je docent bij elke nieuwe start.",
       ],
       musicParts: [
-        { title: "Nootlengtes 1-2-4 tellen", embedUrl: "" },
-        { title: "We Will Rock You melodiedeel", embedUrl: "" },
+        { title: "Oefening 1 voorgespeeld", embedUrl: "https://www.youtube.com/embed/wxt-4Z8vZ5A" },
+        { title: "Oefening 2 voorgespeeld", embedUrl: "https://www.youtube.com/embed/FKmaFixbcZg" },
+      ],
+      extraMusicPartsTitle: "We Will Rock You",
+      extraMusicParts: [
+        { title: "We Will Rock You voorgespeeld", embedUrl: "https://www.youtube.com/embed/5OflUKqklGM" },
       ],
       practiceParagraph: "Oefen in korte rondes van 5 minuten: eerst nootlengtes, daarna een stukje uit het lied.",
       practiceBullets: [
