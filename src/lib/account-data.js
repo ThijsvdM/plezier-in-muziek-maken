@@ -8,6 +8,12 @@ const resolveDataDirectory = () => {
   const configured = process.env.MUSIC_DATA_DIR?.trim();
   if (configured) return configured;
 
+  // Vercel deployments run from a read-only code bundle.
+  // Without an external writable volume, only /tmp is writable.
+  if (process.env.VERCEL) {
+    return path.join("/tmp", "plezier-in-muziek-maken-data");
+  }
+
   // IMPORTANT: never keep mutable account/agenda data in src/data by default.
   // App updates or re-deployments can replace repository files.
   return path.join(os.homedir(), ".plezier-in-muziek-maken-data");
@@ -142,9 +148,14 @@ const ensureFileWithLegacyMigration = async (filePath, legacyFilePath, initialVa
 
 const readJsonArray = async (filePath, fallback) => {
   await ensureFile(filePath, fallback);
-  const raw = await fs.readFile(filePath, "utf8");
-  const parsed = JSON.parse(raw);
-  return Array.isArray(parsed) ? parsed : fallback;
+  try {
+    const raw = await fs.readFile(filePath, "utf8");
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : fallback;
+  } catch {
+    await writeJsonArray(filePath, fallback);
+    return fallback;
+  }
 };
 
 const writeJsonArray = async (filePath, value) => {
