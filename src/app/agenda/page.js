@@ -4,36 +4,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const defaultUsers = [
-  {
-    username: "leerling",
-    password: "muziek123",
-    maxUnlockedLesson: 5,
-    submissionAddress: "",
-  },
-  {
-    username: "docent",
-    password: "drummen",
-    maxUnlockedLesson: 10,
-    submissionAddress: "",
-  },
-];
-
-const defaultEvents = [];
-
-const normalizeUser = (user) => ({
-  username: user.username,
-  password: user.password,
-  maxUnlockedLesson: typeof user.maxUnlockedLesson === "number"
-    ? user.maxUnlockedLesson
-    : user.username === "docent"
-      ? 10
-      : 5,
-  submissionAddress: typeof user.submissionAddress === "string"
-    ? user.submissionAddress
-    : "",
-});
-
 const toIsoDateString = (value) => {
   if (typeof value !== "string") return "";
   const trimmed = value.trim();
@@ -69,116 +39,113 @@ const sortEventsByDateTime = (items) =>
     return aDate.localeCompare(bDate);
   });
 
-const getStoredUsers = () => {
-  if (typeof window === "undefined") return defaultUsers;
-
-  const storedUsers = localStorage.getItem("music_users");
-  if (!storedUsers) {
-    localStorage.setItem("music_users", JSON.stringify(defaultUsers));
-    return defaultUsers;
-  }
-
-  try {
-    const parsedUsers = JSON.parse(storedUsers);
-    if (!Array.isArray(parsedUsers)) return defaultUsers;
-    const normalizedUsers = parsedUsers.map(normalizeUser);
-    localStorage.setItem("music_users", JSON.stringify(normalizedUsers));
-    return normalizedUsers;
-  } catch (error) {
-    console.warn("Ongeldige gebruikersdata in localStorage", error);
-    localStorage.setItem("music_users", JSON.stringify(defaultUsers));
-    return defaultUsers;
-  }
-};
-
-const getStoredEvents = () => {
-  if (typeof window === "undefined") return defaultEvents;
-
-  const storedEvents = localStorage.getItem("music_agenda_events");
-  if (!storedEvents) {
-    return defaultEvents;
-  }
-
-  try {
-    const parsed = JSON.parse(storedEvents);
-    if (!Array.isArray(parsed)) return defaultEvents;
-    return parsed
-      .filter((event) => typeof event.assignedTo === "string")
-      .map((event) => ({
-        ...event,
-        date: toIsoDateString(event.date) || event.date,
-      }));
-  } catch (error) {
-    console.warn("Ongeldige agenda-data in localStorage", error);
-    return defaultEvents;
-  }
-};
-
 export default function AgendaPage() {
   const router = useRouter();
 
-  const [user] = useState(() => {
-    if (typeof window === "undefined") {
-      return null;
-    }
-    return localStorage.getItem("music_user");
-  });
-
-  const [users, setUsers] = useState(() => {
-    if (typeof window === "undefined") {
-      return defaultUsers;
-    }
-    return getStoredUsers();
-  });
-
-  const [events, setEvents] = useState(() => {
-    if (typeof window === "undefined") {
-      return defaultEvents;
-    }
-    return sortEventsByDateTime(getStoredEvents());
-  });
+  const [sessionUser, setSessionUser] = useState(null);
+  const [users, setUsers] = useState([]);
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [dataError, setDataError] = useState("");
 
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [note, setNote] = useState("");
-  const [assignedTo, setAssignedTo] = useState("leerling");
+  const [assignedTo, setAssignedTo] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newSubmissionAddress, setNewSubmissionAddress] = useState("");
   const [userError, setUserError] = useState("");
+  const [eventError, setEventError] = useState("");
   const unlockedLessonOptions = [5, 6, 7, 8, 9, 10];
 
-  useEffect(() => {
-    if (!user) {
-      router.replace("/login");
-      return;
-    }
-  }, [router, user]);
+  const isOwner = sessionUser?.username === "docent";
+  const isLoggedIn = Boolean(sessionUser);
+  const currentUnlockedLesson = sessionUser?.maxUnlockedLesson ?? 5;
 
   useEffect(() => {
-    localStorage.setItem("music_agenda_events", JSON.stringify(events));
-  }, [events]);
+    let active = true;
 
-  useEffect(() => {
-    localStorage.setItem("music_users", JSON.stringify(users));
-  }, [users]);
+    const loadData = async () => {
+      setLoading(true);
+      setDataError("");
 
-  const isOwner = user === "docent";
-  const isLoggedIn = Boolean(user);
-  const currentUserRecord = users.find((userItem) => userItem.username === user) || null;
-  const currentUnlockedLesson = currentUserRecord?.maxUnlockedLesson ?? (user === "docent" ? 10 : 5);
+      try {
+        const sessionResponse = await fetch("/api/session", { cache: "no-store" });
+        const sessionPayload = await sessionResponse.json();
 
-  const handleAddEvent = (event) => {
+        if (!active) return;
+
+        if (!sessionPayload?.authenticated || !sessionPayload?.user) {
+          router.replace("/login");
+          return;
+        }
+
+        const signedInUser = sessionPayload.user;
+        setSessionUser(signedInUser);
+
+        const eventsResponse = await fetch("/api/agenda-events", { cache: "no-store" });
+        const eventsPayload = await eventsResponse.json();
+
+        if (!eventsResponse.ok) {
+          throw new Error(eventsPayload?.message || "Kon afspraken niet laden.");
+        }
+
+        const loadedEvents = Array.isArray(eventsPayload?.events) ? eventsPayload.events : [];
+        setEvents(sortEventsByDateTime(loadedEvents));
+
+        if (signedInUser.username === "docent") {
+          const usersResponse = await fetch("/api/users", { cache: "no-store" });
+          const usersPayload = await usersResponse.json();
+
+          if (!usersResponse.ok) {
+            throw new Error(usersPayload?.message || "Kon gebruikers niet laden.");
+          }
+
+          const loadedUsers = Array.isArray(usersPayload?.users)
+            ? usersPayload.users.filter((item) => item.username !== "docent")
+            : [];
+
+          setUsers(loadedUsers);
+          setAssignedTo((current) => {
+            if (current && loadedUsers.some((item) => item.username === current)) {
+              return current;
+            }
+            return loadedUsers[0]?.username || "";
+          });
+        } else {
+          setUsers([]);
+          setAssignedTo("");
+        }
+      } catch (error) {
+        if (!active) return;
+        setDataError(error?.message || "Kon agenda niet laden.");
+      } finally {
+        if (active) {
+          setLoading(false);
+        }
+      }
+    };
+
+    loadData();
+
+    return () => {
+      active = false;
+    };
+  }, [router]);
+
+  const handleAddEvent = async (event) => {
     event.preventDefault();
+    setEventError("");
 
     if (!title || !date || !time || !assignedTo) {
+      setEventError("Vul titel, datum, tijd en leerling in.");
       return;
     }
 
-    const updatedEvent = {
-      id: editingId || Date.now(),
+    const payload = {
       title,
       date: toIsoDateString(date) || date,
       time,
@@ -186,10 +153,28 @@ export default function AgendaPage() {
       assignedTo,
     };
 
-    if (editingId) {
-      setEvents((current) => sortEventsByDateTime(current.map((item) => (item.id === editingId ? updatedEvent : item))));
-    } else {
-      setEvents((current) => sortEventsByDateTime([updatedEvent, ...current]));
+    const endpoint = editingId ? `/api/agenda-events/${editingId}` : "/api/agenda-events";
+    const method = editingId ? "PATCH" : "POST";
+
+    try {
+      const response = await fetch(endpoint, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        setEventError(result?.message || "Kon afspraak niet opslaan.");
+        return;
+      }
+
+      if (Array.isArray(result?.events)) {
+        setEvents(sortEventsByDateTime(result.events));
+      }
+    } catch {
+      setEventError("Kon afspraak niet opslaan.");
+      return;
     }
 
     setTitle("");
@@ -200,11 +185,24 @@ export default function AgendaPage() {
     setEditingId(null);
   };
 
-  const handleDeleteEvent = (eventId) => {
-    setEvents((current) => current.filter((item) => item.id !== eventId));
+  const handleDeleteEvent = async (eventId) => {
+    try {
+      const response = await fetch(`/api/agenda-events/${eventId}`, { method: "DELETE" });
+      const result = await response.json();
+      if (!response.ok) {
+        setEventError(result?.message || "Kon afspraak niet verwijderen.");
+        return;
+      }
+
+      if (Array.isArray(result?.events)) {
+        setEvents(sortEventsByDateTime(result.events));
+      }
+    } catch {
+      setEventError("Kon afspraak niet verwijderen.");
+    }
   };
 
-  const handleAddUser = () => {
+  const handleAddUser = async () => {
     setUserError("");
 
     if (!newUsername || !newPassword) {
@@ -212,51 +210,110 @@ export default function AgendaPage() {
       return;
     }
 
-    if (users.some((existing) => existing.username === newUsername)) {
-      setUserError("Deze gebruikersnaam bestaat al.");
-      return;
+    try {
+      const response = await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: newUsername.trim(),
+          password: newPassword.trim(),
+          maxUnlockedLesson: 5,
+          submissionAddress: newSubmissionAddress,
+        }),
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        setUserError(result?.message || "Kon gebruiker niet aanmaken.");
+        return;
+      }
+
+      const loadedUsers = Array.isArray(result?.users)
+        ? result.users.filter((item) => item.username !== "docent")
+        : [];
+      setUsers(loadedUsers);
+      setAssignedTo((current) => current || loadedUsers[0]?.username || "");
+
+      setNewUsername("");
+      setNewPassword("");
+      setNewSubmissionAddress("");
+    } catch {
+      setUserError("Kon gebruiker niet aanmaken.");
     }
-
-    const newUser = {
-      username: newUsername,
-      password: newPassword,
-      maxUnlockedLesson: 5,
-      submissionAddress: newSubmissionAddress.trim(),
-    };
-
-    setUsers((current) => [...current, newUser]);
-    setNewUsername("");
-    setNewPassword("");
-    setNewSubmissionAddress("");
   };
 
-  const handleUpdateUserUnlocks = (usernameToUpdate, lessonNumber) => {
-    setUsers((current) =>
-      current.map((userItem) =>
-        userItem.username === usernameToUpdate
-          ? { ...userItem, maxUnlockedLesson: lessonNumber }
-          : userItem
-      )
-    );
-  };
+  const handleUpdateUserUnlocks = async (usernameToUpdate, lessonNumber) => {
+    try {
+      const response = await fetch(`/api/users/${encodeURIComponent(usernameToUpdate)}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ maxUnlockedLesson: lessonNumber }),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        setUserError(result?.message || "Kon gebruiker niet bijwerken.");
+        return;
+      }
 
-  const handleDeleteUser = (usernameToDelete) => {
-    if (usernameToDelete === "docent") {
-      return;
+      if (result?.user) {
+        setUsers((current) => current.map((item) => (item.username === usernameToUpdate ? result.user : item)));
+      }
+    } catch {
+      setUserError("Kon gebruiker niet bijwerken.");
     }
-
-    setUsers((current) => current.filter((userItem) => userItem.username !== usernameToDelete));
-    setEvents((current) => current.filter((item) => item.assignedTo !== usernameToDelete));
   };
 
-  const handleUpdateSubmissionAddress = (usernameToUpdate, submissionAddress) => {
-    setUsers((current) =>
-      current.map((userItem) =>
-        userItem.username === usernameToUpdate
-          ? { ...userItem, submissionAddress }
-          : userItem
-      )
-    );
+  const handleDeleteUser = async (usernameToDelete) => {
+    try {
+      const response = await fetch(`/api/users/${encodeURIComponent(usernameToDelete)}`, {
+        method: "DELETE",
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        setUserError(result?.message || "Kon gebruiker niet verwijderen.");
+        return;
+      }
+
+      const loadedUsers = Array.isArray(result?.users)
+        ? result.users.filter((item) => item.username !== "docent")
+        : [];
+      setUsers(loadedUsers);
+
+      if (Array.isArray(result?.events)) {
+        setEvents(sortEventsByDateTime(result.events));
+      }
+
+      setAssignedTo((current) => {
+        if (current && loadedUsers.some((item) => item.username === current)) {
+          return current;
+        }
+        return loadedUsers[0]?.username || "";
+      });
+    } catch {
+      setUserError("Kon gebruiker niet verwijderen.");
+    }
+  };
+
+  const handleUpdateSubmissionAddress = async (usernameToUpdate, submissionAddress) => {
+    try {
+      const response = await fetch(`/api/users/${encodeURIComponent(usernameToUpdate)}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ submissionAddress }),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        setUserError(result?.message || "Kon inleveradres niet opslaan.");
+        return;
+      }
+
+      if (result?.user) {
+        setUsers((current) => current.map((item) => (item.username === usernameToUpdate ? result.user : item)));
+      }
+    } catch {
+      setUserError("Kon inleveradres niet opslaan.");
+    }
   };
 
   const handleEditEvent = (eventItem) => {
@@ -271,6 +328,7 @@ export default function AgendaPage() {
 
   const handleCancelEdit = () => {
     setEditingId(null);
+    setEventError("");
     setTitle("");
     setDate("");
     setTime("");
@@ -281,7 +339,34 @@ export default function AgendaPage() {
   const sortedEvents = sortEventsByDateTime(events);
   const visibleEvents = isOwner
     ? sortedEvents
-    : sortedEvents.filter((item) => item.assignedTo === user);
+    : sortedEvents.filter((item) => item.assignedTo === sessionUser?.username);
+
+  if (loading) {
+    return (
+      <main className="relative min-h-screen overflow-hidden p-8 md:p-12" style={{ background: "var(--bg-soft)" }}>
+        <div className="max-w-6xl mx-auto">
+          <section className="card text-center">
+            <h2 className="text-2xl font-bold mb-2">Agenda laden...</h2>
+            <p className="subtitle">Even geduld, we halen de laatste gegevens op.</p>
+          </section>
+        </div>
+      </main>
+    );
+  }
+
+  if (dataError) {
+    return (
+      <main className="relative min-h-screen overflow-hidden p-8 md:p-12" style={{ background: "var(--bg-soft)" }}>
+        <div className="max-w-6xl mx-auto">
+          <section className="card text-center">
+            <h2 className="text-2xl font-bold mb-2">Kon agenda niet laden</h2>
+            <p className="subtitle mb-4">{dataError}</p>
+            <Link href="/" className="btn">Terug naar home</Link>
+          </section>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="relative min-h-screen overflow-hidden p-8 md:p-12" style={{ background: "var(--bg-soft)" }}>
@@ -316,7 +401,7 @@ export default function AgendaPage() {
                   Bekijk hier de datum en tijd van de komende lessen.
                 </p>
               </div>
-              <div className="badge">Ingelogd als {user} · les t/m {currentUnlockedLesson}</div>
+              <div className="badge">Ingelogd als {sessionUser?.username} · les t/m {currentUnlockedLesson}</div>
             </div>
 
             {visibleEvents.length === 0 ? (
@@ -367,6 +452,8 @@ export default function AgendaPage() {
                 ))}
               </div>
             )}
+
+            {eventError && <div className="error-box mt-6">{eventError}</div>}
           </section>
 
           {isOwner && (

@@ -1,0 +1,14 @@
+[
+  {
+    "username": "docent",
+    "password": "drummen",
+    "maxUnlockedLesson": 10,
+    "submissionAddress": ""
+  },
+  {
+    "username": "stifthorst",
+    "password": "Renswoude",
+    "maxUnlockedLesson": 5,
+    "submissionAddress": "lc@onsgenoen.org"
+  }
+]

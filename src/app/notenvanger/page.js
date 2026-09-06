@@ -66,10 +66,8 @@ export default function NotenvangerPage() {
   const [leaderboard, setLeaderboard] = useState([]);
   const [loadingBoard, setLoadingBoard] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return Boolean(localStorage.getItem("music_user"));
-  });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [sessionUser, setSessionUser] = useState("");
 
   const gameRef = useRef({
     items: [],
@@ -111,15 +109,34 @@ export default function NotenvangerPage() {
   }, [fetchLeaderboard]);
 
   useEffect(() => {
-    const refreshLoginState = () => {
-      setIsLoggedIn(Boolean(localStorage.getItem("music_user")));
+    let active = true;
+
+    const refreshLoginState = async () => {
+      try {
+        const response = await fetch("/api/session", { cache: "no-store" });
+        const payload = await response.json();
+        if (!active) return;
+
+        if (!payload?.authenticated || !payload?.user) {
+          setIsLoggedIn(false);
+          setSessionUser("");
+          return;
+        }
+
+        setIsLoggedIn(true);
+        setSessionUser(payload.user.username || "");
+      } catch {
+        if (!active) return;
+        setIsLoggedIn(false);
+        setSessionUser("");
+      }
     };
 
-    window.addEventListener("storage", refreshLoginState);
+    refreshLoginState();
     window.addEventListener("focus", refreshLoginState);
 
     return () => {
-      window.removeEventListener("storage", refreshLoginState);
+      active = false;
       window.removeEventListener("focus", refreshLoginState);
     };
   }, []);
@@ -282,13 +299,12 @@ export default function NotenvangerPage() {
 
     if (!isGameOver || submitted) return;
 
-    const storedUser = typeof window !== "undefined" ? localStorage.getItem("music_user") : "";
-    if (!storedUser) {
+    if (!sessionUser) {
       setErrorMessage("Log eerst in om een score op te slaan.");
       return;
     }
 
-    const accountId = `user:${storedUser.trim().toLowerCase()}`;
+    const accountId = `user:${sessionUser.trim().toLowerCase()}`;
 
     try {
       const response = await fetch("/api/note-catcher-scores", {

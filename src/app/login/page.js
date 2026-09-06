@@ -3,78 +3,47 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const defaultUsers = [
-  {
-    username: "leerling",
-    password: "muziek123",
-    maxUnlockedLesson: 5,
-  },
-  {
-    username: "docent",
-    password: "drummen",
-    maxUnlockedLesson: 10,
-  },
-];
-
-const normalizeUser = (user) => ({
-  username: user.username,
-  password: user.password,
-  maxUnlockedLesson: typeof user.maxUnlockedLesson === "number"
-    ? user.maxUnlockedLesson
-    : user.username === "docent"
-      ? 10
-      : 5,
-  submissionAddress: typeof user.submissionAddress === "string"
-    ? user.submissionAddress
-    : "",
-});
-
 export default function LoginPage() {
   const router = useRouter();
-
-  const [users, setUsers] = useState(() => {
-    if (typeof window === "undefined") return defaultUsers;
-
-    const storedUsers = localStorage.getItem("music_users");
-    if (!storedUsers) {
-      localStorage.setItem("music_users", JSON.stringify(defaultUsers));
-      return defaultUsers;
-    }
-
-    try {
-      const parsedUsers = JSON.parse(storedUsers);
-      if (!Array.isArray(parsedUsers)) return defaultUsers;
-      const normalizedUsers = parsedUsers.map(normalizeUser);
-      localStorage.setItem("music_users", JSON.stringify(normalizedUsers));
-      return normalizedUsers;
-    } catch (error) {
-      localStorage.setItem("music_users", JSON.stringify(defaultUsers));
-      return defaultUsers;
-    }
-  });
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event?.preventDefault();
+    setError("");
 
-    const foundUser = users.find(
-      (user) =>
-        user.username === username &&
-        user.password === password
-    );
-
-    if (!foundUser) {
-      setError("❌ Gebruikersnaam of wachtwoord klopt niet");
+    if (!username.trim() || !password.trim()) {
+      setError("Vul gebruikersnaam en wachtwoord in.");
       return;
     }
 
-    // Login opslaan
-    localStorage.setItem("music_user", foundUser.username);
+    setSubmitting(true);
 
-    // Redirect
-    router.push("/");
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: username.trim(),
+          password: password.trim(),
+        }),
+      });
+
+      if (!response.ok) {
+        const payload = await response.json().catch(() => ({}));
+        setError(payload?.message || "Inloggen mislukt.");
+        return;
+      }
+
+      router.push("/");
+      router.refresh();
+    } catch {
+      setError("Inloggen mislukt. Probeer het opnieuw.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -168,12 +137,14 @@ export default function LoginPage() {
         <button
           type="submit"
           className="btn w-full clickable"
+          disabled={submitting}
           style={{
             fontSize: "1.1rem",
             padding: "14px",
+            opacity: submitting ? 0.75 : 1,
           }}
         >
-          🚀 Start avontuur
+          {submitting ? "Bezig met inloggen..." : "Start avontuur"}
         </button>
 
         {/* Extra info */}

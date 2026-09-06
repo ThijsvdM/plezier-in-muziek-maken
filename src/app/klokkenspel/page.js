@@ -20,45 +20,34 @@ export default function Klokkenspel() {
   const [maxUnlockedLesson, setMaxUnlockedLesson] = useState(1);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const getMaxUnlockedLesson = () => {
-    if (typeof window === "undefined") return 1;
-
-    const currentUser = localStorage.getItem("music_user");
-    if (!currentUser) return 1;
-
-    const storedUsers = localStorage.getItem("music_users");
-    if (storedUsers) {
-      try {
-        const parsedUsers = JSON.parse(storedUsers);
-        if (Array.isArray(parsedUsers)) {
-          const userRecord = parsedUsers.find((item) => item.username === currentUser);
-          if (typeof userRecord?.maxUnlockedLesson === "number") {
-            return userRecord.maxUnlockedLesson;
-          }
-        }
-      } catch (error) {
-        // ignore malformed storage and fall back below
-      }
-    }
-
-    const legacyUnlocked = localStorage.getItem("music_unlocked");
-    if (legacyUnlocked === "true") {
-      return 5;
-    }
-
-    return currentUser === "docent" ? 10 : 5;
-  };
-
   useEffect(() => {
-    const refreshAccess = () => {
-      const currentUser = typeof window !== "undefined" ? localStorage.getItem("music_user") : null;
-      setIsLoggedIn(Boolean(currentUser));
-      setMaxUnlockedLesson(getMaxUnlockedLesson());
+    let active = true;
+
+    const refreshAccess = async () => {
+      try {
+        const response = await fetch("/api/session", { cache: "no-store" });
+        const payload = await response.json();
+        if (!active) return;
+
+        if (!payload?.authenticated || !payload?.user) {
+          setIsLoggedIn(false);
+          setMaxUnlockedLesson(1);
+          return;
+        }
+
+        setIsLoggedIn(true);
+        setMaxUnlockedLesson(payload.user.maxUnlockedLesson ?? (payload.user.username === "docent" ? 10 : 5));
+      } catch {
+        if (!active) return;
+        setIsLoggedIn(false);
+        setMaxUnlockedLesson(1);
+      }
     };
 
     refreshAccess();
-    window.addEventListener("storage", refreshAccess);
-    return () => window.removeEventListener("storage", refreshAccess);
+    return () => {
+      active = false;
+    };
   }, []);
 
   const canAccessLesson = (lessonNumber) => lessonNumber <= maxUnlockedLesson;

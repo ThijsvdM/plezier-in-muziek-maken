@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [user, setUser] = useState(null);
-  const [hydrated, setHydrated] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const navButtonStyles = {
     home: { background: "var(--yellow)", color: "#523800" },
     parents: { background: "var(--pink)", color: "#7a1630" },
@@ -17,26 +17,38 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("music_user");
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setUser(storedUser);
-    setHydrated(true);
-  }, []);
+    let active = true;
 
-  useEffect(() => {
-    if (!hydrated) return;
-    const storedUser = localStorage.getItem("music_user");
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setUser(storedUser);
-  }, [pathname, hydrated]);
+    const loadSession = async () => {
+      try {
+        const response = await fetch("/api/session", { cache: "no-store" });
+        const payload = await response.json();
+        if (!active) return;
+        setUser(payload?.authenticated ? payload?.user?.username || null : null);
+      } catch {
+        if (!active) return;
+        setUser(null);
+      }
+    };
 
-  useEffect(() => {
-    const handleStorage = () => setUser(localStorage.getItem("music_user"));
-    window.addEventListener("storage", handleStorage);
-    return () => window.removeEventListener("storage", handleStorage);
-  }, []);
+    loadSession();
+    return () => {
+      active = false;
+    };
+  }, [pathname]);
 
   const closeMobileMenu = () => setMobileOpen(false);
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } finally {
+      setUser(null);
+      closeMobileMenu();
+      router.refresh();
+      window.location.reload();
+    }
+  };
 
   const navItems = [
     { href: "/", label: "🏠 Home", style: navButtonStyles.home },
@@ -107,13 +119,7 @@ export default function Navbar() {
               {user && (
                 <button
                   type="button"
-                  onClick={() => {
-                    localStorage.removeItem("music_user");
-                    localStorage.removeItem("music_unlocked");
-                    setUser(null);
-                    closeMobileMenu();
-                    window.location.reload();
-                  }}
+                  onClick={handleLogout}
                   className="btn"
                 >
                   Uitloggen
@@ -151,11 +157,7 @@ export default function Navbar() {
                 <div className="badge">👤 {user}</div>
 
                 <button
-                  onClick={() => {
-                    localStorage.removeItem("music_user");
-                    localStorage.removeItem("music_unlocked");
-                    window.location.reload();
-                  }}
+                  onClick={handleLogout}
                   className="btn"
                 >
                   Uitloggen

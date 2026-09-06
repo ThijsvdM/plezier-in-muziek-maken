@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const normalizeAddress = (value) => {
   if (!value || typeof value !== "string") return "";
@@ -9,27 +9,34 @@ const normalizeAddress = (value) => {
 
 export default function Lesson4VideoAssignment({ instrumentName }) {
   const [status, setStatus] = useState("");
+  const [submissionAddress, setSubmissionAddress] = useState("");
 
-  const currentUser = useMemo(() => {
-    if (typeof window === "undefined") return "leerling";
-    return localStorage.getItem("music_user") || "leerling";
+  useEffect(() => {
+    let active = true;
+
+    const loadSession = async () => {
+      try {
+        const response = await fetch("/api/session", { cache: "no-store" });
+        const payload = await response.json();
+        if (!active) return;
+
+        if (!payload?.authenticated || !payload?.user) {
+          setSubmissionAddress("");
+          return;
+        }
+
+        setSubmissionAddress(normalizeAddress(payload.user.submissionAddress));
+      } catch {
+        if (!active) return;
+        setSubmissionAddress("");
+      }
+    };
+
+    loadSession();
+    return () => {
+      active = false;
+    };
   }, []);
-
-  const submissionAddress = useMemo(() => {
-    if (typeof window === "undefined") return "";
-
-    const usersRaw = localStorage.getItem("music_users");
-    if (!usersRaw) return "";
-
-    try {
-      const users = JSON.parse(usersRaw);
-      if (!Array.isArray(users)) return "";
-      const user = users.find((item) => item?.username === currentUser);
-      return normalizeAddress(user?.submissionAddress);
-    } catch {
-      return "";
-    }
-  }, [currentUser]);
 
   const openableAddress = useMemo(() => {
     const address = normalizeAddress(submissionAddress);
