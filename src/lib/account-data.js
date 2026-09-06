@@ -3,8 +3,21 @@ import path from "node:path";
 
 export const SESSION_COOKIE_NAME = "music_session";
 
-const USERS_FILE = path.join(process.cwd(), "src", "data", "users.json");
-const EVENTS_FILE = path.join(process.cwd(), "src", "data", "agenda-events.json");
+const resolveDataDirectory = () => {
+  const configured = process.env.MUSIC_DATA_DIR?.trim();
+  if (configured) return configured;
+
+  // Vercel deployments have a read-only project directory.
+  if (process.env.VERCEL) {
+    return path.join("/tmp", "plezier-in-muziek-maken-data");
+  }
+
+  return path.join(process.cwd(), "src", "data");
+};
+
+const DATA_DIR = resolveDataDirectory();
+const USERS_FILE = path.join(DATA_DIR, "users.json");
+const EVENTS_FILE = path.join(DATA_DIR, "agenda-events.json");
 
 const DEFAULT_USERS = [
   {
@@ -115,6 +128,11 @@ const readJsonArray = async (filePath, fallback) => {
 const writeJsonArray = async (filePath, value) => {
   await fs.mkdir(path.dirname(filePath), { recursive: true });
   await fs.writeFile(filePath, `${JSON.stringify(value, null, 2)}\n`, "utf8");
+};
+
+export const isStorageWriteError = (error) => {
+  const code = error?.code;
+  return code === "EROFS" || code === "EACCES" || code === "EPERM";
 };
 
 export const readUsers = async () => {

@@ -72,6 +72,13 @@ Deze app gebruikt server-side JSON-opslag voor gedeelde gegevens tussen devices:
 
 Let op: JSON-bestandsopslag is prima voor kleine omgevingen en demos, maar voor productie op grotere schaal is een database aan te raden.
 
+### Opslagpad in productie
+
+- Je kunt een schrijfbare map instellen met environment variable `MUSIC_DATA_DIR`.
+- Zonder deze variabele gebruikt de app lokaal [src/data](src/data).
+- Op Vercel valt de app automatisch terug op `/tmp/plezier-in-muziek-maken-data` zodat mutaties (zoals gebruiker verwijderen) niet falen op read-only bestandssystemen.
+- `/tmp` is tijdelijk: data kan verdwijnen bij herstart/schaalacties. Voor blijvende productie-data: gebruik een database.
+
 ## API-overzicht
 
 - [src/app/api/session/route.js](src/app/api/session/route.js): huidige sessie ophalen

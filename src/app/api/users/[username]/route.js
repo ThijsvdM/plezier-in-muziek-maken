@@ -1,5 +1,6 @@
 import {
   getSessionUser,
+  isStorageWriteError,
   readEvents,
   readUsers,
   sanitizeIncomingUser,
@@ -56,7 +57,14 @@ export async function PATCH(request, { params }) {
 
     const updatedUsers = await writeUsers(users);
     return noStoreJson({ user: toPublicUser(updatedUsers.find((user) => user.username === username)) });
-  } catch {
+  } catch (error) {
+    if (isStorageWriteError(error)) {
+      return noStoreJson(
+        { message: "Opslag is niet schrijfbaar op deze omgeving. Stel MUSIC_DATA_DIR in of gebruik een database." },
+        503
+      );
+    }
+
     return noStoreJson({ message: "Kon gebruiker niet bijwerken." }, 500);
   }
 }
@@ -87,7 +95,14 @@ export async function DELETE(request, { params }) {
       users: updatedUsers.map(toPublicUser),
       events: updatedEvents,
     });
-  } catch {
+  } catch (error) {
+    if (isStorageWriteError(error)) {
+      return noStoreJson(
+        { message: "Opslag is niet schrijfbaar op deze omgeving. Stel MUSIC_DATA_DIR in of gebruik een database." },
+        503
+      );
+    }
+
     return noStoreJson({ message: "Kon gebruiker niet verwijderen." }, 500);
   }
 }
