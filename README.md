@@ -75,9 +75,10 @@ Let op: JSON-bestandsopslag is prima voor kleine omgevingen en demos, maar voor 
 ### Opslagpad in productie
 
 - Je kunt een schrijfbare map instellen met environment variable `MUSIC_DATA_DIR`.
-- Zonder deze variabele gebruikt de app lokaal [src/data](src/data).
-- Op Vercel valt de app automatisch terug op `/tmp/plezier-in-muziek-maken-data` zodat mutaties (zoals gebruiker verwijderen) niet falen op read-only bestandssystemen.
-- `/tmp` is tijdelijk: data kan verdwijnen bij herstart/schaalacties. Voor blijvende productie-data: gebruik een database.
+- Zonder deze variabele schrijft de app standaard naar een map buiten de repository: `~/.plezier-in-muziek-maken-data`.
+- Hierdoor worden accounts en agenda-data niet overschreven door toekomstige app-updates/deploys van de codebase.
+- Bij eerste start migreert de app automatisch bestaande data uit [src/data](src/data) naar de nieuwe opslagmap als die legacy-bestanden aanwezig zijn.
+- Voor multi-instance productie blijft een database de aanbevolen oplossing.
 
 ## API-overzicht
 

@@ -1,4 +1,5 @@
 import { promises as fs } from "node:fs";
+import os from "node:os";
 import path from "node:path";
 
 export const SESSION_COOKIE_NAME = "music_session";
@@ -7,17 +8,17 @@ const resolveDataDirectory = () => {
   const configured = process.env.MUSIC_DATA_DIR?.trim();
   if (configured) return configured;
 
-  // Vercel deployments have a read-only project directory.
-  if (process.env.VERCEL) {
-    return path.join("/tmp", "plezier-in-muziek-maken-data");
-  }
-
-  return path.join(process.cwd(), "src", "data");
+  // IMPORTANT: never keep mutable account/agenda data in src/data by default.
+  // App updates or re-deployments can replace repository files.
+  return path.join(os.homedir(), ".plezier-in-muziek-maken-data");
 };
 
 const DATA_DIR = resolveDataDirectory();
+const LEGACY_DATA_DIR = path.join(process.cwd(), "src", "data");
 const USERS_FILE = path.join(DATA_DIR, "users.json");
 const EVENTS_FILE = path.join(DATA_DIR, "agenda-events.json");
+const LEGACY_USERS_FILE = path.join(LEGACY_DATA_DIR, "users.json");
+const LEGACY_EVENTS_FILE = path.join(LEGACY_DATA_DIR, "agenda-events.json");
 
 const DEFAULT_USERS = [
   {
@@ -118,6 +119,27 @@ const ensureFile = async (filePath, initialValue) => {
   }
 };
 
+const ensureFileWithLegacyMigration = async (filePath, legacyFilePath, initialValue) => {
+  try {
+    await fs.access(filePath);
+    return;
+  } catch {
+    // Target file does not exist yet.
+  }
+
+  await fs.mkdir(path.dirname(filePath), { recursive: true });
+
+  try {
+    await fs.access(legacyFilePath);
+    await fs.copyFile(legacyFilePath, filePath);
+    return;
+  } catch {
+    // Legacy file is not present; fall back to initial defaults.
+  }
+
+  await ensureFile(filePath, initialValue);
+};
+
 const readJsonArray = async (filePath, fallback) => {
   await ensureFile(filePath, fallback);
   const raw = await fs.readFile(filePath, "utf8");
@@ -136,6 +158,7 @@ export const isStorageWriteError = (error) => {
 };
 
 export const readUsers = async () => {
+  await ensureFileWithLegacyMigration(USERS_FILE, LEGACY_USERS_FILE, DEFAULT_USERS);
   const users = await readJsonArray(USERS_FILE, DEFAULT_USERS);
   const normalized = users
     .map(normalizeUser)
@@ -157,6 +180,7 @@ export const writeUsers = async (users) => {
 };
 
 export const readEvents = async () => {
+  await ensureFileWithLegacyMigration(EVENTS_FILE, LEGACY_EVENTS_FILE, []);
   const events = await readJsonArray(EVENTS_FILE, []);
   return sortEventsByDateTime(
     events
